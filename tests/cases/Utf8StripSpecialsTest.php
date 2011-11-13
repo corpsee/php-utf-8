@@ -1,19 +1,18 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/utils/unicode.php';
 require_once UTF8.'/utils/specials.php';
 
 
-class Utf8StripSpecialsTest extends TestLibTestCase
+class Utf8StripSpecialsTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_strip_specials()';
-
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
-		$this->is_equal(utf8_strip_specials(''), '');
+		$this->assertEquals('', utf8_strip_specials(''));
 	}
 
-	protected function test_strip()
+	public function test_strip()
 	{
 		$str = 'Hello '.
 			chr(0xe0 | (0x2234 >> 12)).
@@ -21,6 +20,6 @@ class Utf8StripSpecialsTest extends TestLibTestCase
 			chr(0x80 | (0x2234 & 0x003f)).
 			' World';
 
-		$this->is_equal(utf8_strip_specials($str), 'HelloWorld');
+		$this->assertEquals('HelloWorld', utf8_strip_specials($str));
 	}
 }

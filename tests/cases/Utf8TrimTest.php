@@ -1,30 +1,29 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/trim.php';
 
 
-class Utf8TrimTest extends TestLibTestCase
+class Utf8TrimTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_trim()';
-
-	protected function test_trim()
+	public function test_trim()
 	{
 		$str = 'ñtërnâtiônàlizætiø';
 		$trimmed = 'tërnâtiônàlizæti';
-		$this->is_equal(utf8_trim($str, 'ñø'), $trimmed);
+		$this->assertEquals($trimmed, utf8_trim($str, 'ñø'));
 	}
 
-	protected function test_no_trim()
+	public function test_no_trim()
 	{
 		$str = ' Iñtërnâtiônàlizætiøn ';
 		$trimmed = ' Iñtërnâtiônàlizætiøn ';
-		$this->is_equal(utf8_trim($str, 'ñø'), $trimmed);
+		$this->assertEquals($trimmed, utf8_trim($str, 'ñø'));
 	}
 
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
 		$str = '';
 		$trimmed = '';
-		$this->is_equal(utf8_trim($str), $trimmed);
+		$this->assertEquals($trimmed, utf8_trim($str));
 	}
 }

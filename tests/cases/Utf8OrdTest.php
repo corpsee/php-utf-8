@@ -1,39 +1,38 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/ord.php';
 
 
-class Utf8OrdTest extends TestLibTestCase
+class Utf8OrdTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_ord()';
-
-	protected function test_empty_str()
+	public function test_empty_str()
 	{
 		$str = '';
-		$this->is_equal(utf8_ord($str), 0);
+		$this->assertEquals(0, utf8_ord($str));
 	}
 
-	protected function test_ascii_char()
+	public function test_ascii_char()
 	{
 		$str = 'a';
-		$this->is_equal(utf8_ord($str), 97);
+		$this->assertEquals(97, utf8_ord($str));
 	}
 
-	protected function test_2_byte_char()
+	public function test_2_byte_char()
 	{
 		$str = 'ñ';
-		$this->is_equal(utf8_ord($str), 241);
+		$this->assertEquals(241, utf8_ord($str));
 	}
 
-	protected function test_3_byte_char()
+	public function test_3_byte_char()
 	{
 		$str = '₧';
-		$this->is_equal(utf8_ord($str), 8359);
+		$this->assertEquals(8359, utf8_ord($str));
 	}
 
-	protected function test_4_byte_char()
+	public function test_4_byte_char()
 	{
 		$str = "\xf0\x90\x8c\xbc";
-		$this->is_equal(utf8_ord($str), 66364);
+		$this->assertEquals(66364, utf8_ord($str));
 	}
 }

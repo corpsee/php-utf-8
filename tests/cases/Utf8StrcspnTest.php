@@ -1,45 +1,44 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/strcspn.php';
 
 
-class Utf8StrcspnTest extends TestLibTestCase
+class Utf8StrcspnTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_strcspn()';
-
-	protected function test_no_match_single_byte_search()
+	public function test_no_match_single_byte_search()
 	{
 		$str = 'iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_strcspn($str, 't'), 2);
+		$this->assertEquals(2, utf8_strcspn($str, 't'));
 	}
 
 	protected function tes_no_match_multi_byte_search()
 	{
 		$str = 'iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_strcspn($str, 'â'), 6);
+		$this->assertEquals(6, utf8_strcspn($str, 'â'));
 	}
 
-	protected function test_compare_strspn()
+	public function test_compare_strspn()
 	{
 		$str = 'aeioustr';
-		$this->is_equal(utf8_strcspn($str, 'tr'), strcspn($str, 'tr'));
+		$this->assertEquals(strcspn($str, 'tr'), utf8_strcspn($str, 'tr'));
 	}
 
-	protected function test_match_ascii()
+	public function test_match_ascii()
 	{
 		$str = 'internationalization';
-		$this->is_equal(utf8_strcspn($str, 'a'), strcspn($str, 'a'));
+		$this->assertEquals(strcspn($str, 'a'), utf8_strcspn($str, 'a'));
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str = "i\nñtërnâtiônàlizætiøn";
-		$this->is_equal(utf8_strcspn($str, 't'), 3);
+		$this->assertEquals(3, utf8_strcspn($str, 't'));
 	}
 
-	protected function test_linefeed_mask()
+	public function test_linefeed_mask()
 	{
 		$str = "i\nñtërnâtiônàlizætiøn";
-		$this->is_equal(utf8_strcspn($str, "\n"), 1);
+		$this->assertEquals(1, utf8_strcspn($str, "\n"));
 	}
 }

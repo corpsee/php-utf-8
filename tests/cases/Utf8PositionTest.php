@@ -1,32 +1,31 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/utils/position.php';
 
 
-class Utf8PositionTest extends TestLibTestCase
+class Utf8PositionTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_byte_position(), utf8_locate_current_chr()';
-
-	protected function test_ascii_char_to_byte()
+	public function test_ascii_char_to_byte()
 	{
 		$str = 'testing';
-		$this->is_identical(utf8_byte_position($str, 3), 3);
-		$this->is_identical(utf8_byte_position($str, 3, 4), array(3, 4));
-		$this->is_identical(utf8_byte_position($str, -1), 0);
-		$this->is_identical(utf8_byte_position($str, 8), 7);
+		$this->assertEquals(3, utf8_byte_position($str, 3));
+		$this->assertEquals(array(3, 4), utf8_byte_position($str, 3, 4));
+		$this->assertEquals(0, utf8_byte_position($str, -1));
+		$this->assertEquals(7, utf8_byte_position($str, 8));
 	}
 
-	protected function test_multibyte_char_to_byte()
+	public function test_multibyte_char_to_byte()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_identical(utf8_byte_position($str, 3), 4);
-		$this->is_identical(utf8_byte_position($str, 3, 5), array(4, 7));
-		$this->is_identical(utf8_byte_position($str, -1), 0);
-		$this->is_identical(utf8_byte_position($str, 28), 27);
+		$this->assertEquals(4, utf8_byte_position($str, 3));
+		$this->assertEquals(array(4, 7), utf8_byte_position($str, 3, 5));
+		$this->assertEquals(0, utf8_byte_position($str, -1));
+		$this->assertEquals(27, utf8_byte_position($str, 28));
 	}
 
 	// Tests for utf8_locate_current_chr & utf8_locate_next_chr
-	protected function test_singlebyte()
+	public function test_singlebyte()
 	{
 		$tests   = array();
 
@@ -35,16 +34,16 @@ class Utf8PositionTest extends TestLibTestCase
 		$tests[] = array('aaживπά우리をあöä', 1, 1);
 
 		foreach($tests as $test)
-			$this->is_identical(utf8_locate_current_chr($test[0], $test[1]), $test[2]);
+			$this->assertEquals($test[2], utf8_locate_current_chr($test[0], $test[1]));
 
 		$tests   = array();
 		$tests[] = array('aaживπά우리をあöä', 1, 1);
 
 		foreach($tests as $test)
-			$this->is_identical(utf8_locate_next_chr($test[0], $test[1]), $test[2]);
+			$this->assertEquals($test[2], utf8_locate_next_chr($test[0], $test[1]));
 	}
 
-	protected function test_two_byte()
+	public function test_two_byte()
 	{
 		// Two byte, should move to boundary, expect even number
 		$tests   = array();
@@ -53,7 +52,7 @@ class Utf8PositionTest extends TestLibTestCase
 		$tests[] = array('aaживπά우리をあöä', 4, 4);
 
 		foreach($tests as $test)
-			$this->is_identical(utf8_locate_current_chr($test[0], $test[1]), $test[2]);
+			$this->assertEquals($test[2], utf8_locate_current_chr($test[0], $test[1]));
 
 		$tests   = array();
 		$tests[] = array('aaживπά우리をあöä', 2, 2);
@@ -61,10 +60,10 @@ class Utf8PositionTest extends TestLibTestCase
 		$tests[] = array('aaживπά우리をあöä', 4, 4);
 
 		foreach($tests as $test)
-			$this->is_identical(utf8_locate_next_chr($test[0], $test[1]), $test[2]);
+			$this->assertEquals($test[2], utf8_locate_next_chr($test[0], $test[1]));
 	}
 
-	protected function test_threebyte()
+	public function test_threebyte()
 	{
 		// Three byte, should move to boundary 10 or 13
 		$tests   = array();
@@ -74,7 +73,7 @@ class Utf8PositionTest extends TestLibTestCase
 		$tests[] = array('aaживπά우리をあöä', 13, 13);
 
 		foreach($tests as $test)
-			$this->is_identical(utf8_locate_current_chr($test[0], $test[1]), $test[2]);
+			$this->assertEquals($test[2], utf8_locate_current_chr($test[0], $test[1]));
 
 		$tests   = array();
 		$tests[] = array('aaживπά우리をあöä', 10, 10);
@@ -83,10 +82,10 @@ class Utf8PositionTest extends TestLibTestCase
 		$tests[] = array('aaживπά우리をあöä', 13, 13);
 
 		foreach($tests as $test)
-			$this->is_identical(utf8_locate_next_chr($test[0], $test[1]), $test[2]);
+			$this->assertEquals($test[2], utf8_locate_next_chr($test[0], $test[1]));
 	}
 
-	protected function test_bounds()
+	public function test_bounds()
 	{
 		// Bounds checking
 		$tests   = array();
@@ -94,12 +93,12 @@ class Utf8PositionTest extends TestLibTestCase
 		$tests[] = array('aaживπά우리をあöä', 128, 29);
 
 		foreach($tests as $test)
-			$this->is_identical(utf8_locate_current_chr($test[0], $test[1]), $test[2]);
+			$this->assertEquals($test[2], utf8_locate_current_chr($test[0], $test[1]));
 
 		$tests[] = array('aaживπά우리をあöä', -2, 0);
 		$tests[] = array('aaживπά우리をあöä', 128, 29);
 
 		foreach($tests as $test)
-			$this->is_identical(utf8_locate_next_chr($test[0], $test[1]), $test[2]);
+			$this->assertEquals($test[2], utf8_locate_next_chr($test[0], $test[1]));
 	}
 }

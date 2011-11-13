@@ -1,54 +1,54 @@
 <?php
 
-class Utf8StrrposTest extends TestLibTestCase
+require_once dirname(__FILE__).'/../bootstrap.php';
+
+class Utf8StrrposTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_strrpos()';
-
-	protected function test_utf8()
+	public function test_utf8()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_strrpos($str, 'i'), 17);
+		$this->assertEquals(17, utf8_strrpos($str, 'i'));
 	}
 
-	protected function test_utf8_offset()
+	public function test_utf8_offset()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_strrpos($str, 'n', 11), 19);
+		$this->assertEquals(19, utf8_strrpos($str, 'n', 11));
 	}
 
-	protected function test_utf8_invalid()
+	public function test_utf8_invalid()
 	{
 		$str = "Iñtërnâtiôn\xe9àlizætiøn";
-		$this->is_equal(utf8_strrpos($str, 'æ'), 15);
+		$this->assertEquals(15, utf8_strrpos($str, 'æ'));
 	}
 
-	protected function test_ascii()
+	public function test_ascii()
 	{
 		$str = 'ABC ABC';
-		$this->is_equal(utf8_strrpos($str, 'B'), 5);
+		$this->assertEquals(5, utf8_strrpos($str, 'B'));
 	}
 
-	protected function test_vs_strpos()
+	public function test_vs_strpos()
 	{
 		$str = 'ABC 123 ABC';
-		$this->is_equal(utf8_strrpos($str, 'B'), strrpos($str, 'B'));
+		$this->assertEquals(strrpos($str, 'B'), utf8_strrpos($str, 'B'));
 	}
 
-	protected function test_empty_str()
+	public function test_empty_str()
 	{
 		$str = '';
-		$this->is_false(utf8_strrpos($str, 'x'));
+		$this->assertFalse(utf8_strrpos($str, 'x'));
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str = "Iñtërnâtiônàlizætiø\nn";
-		$this->is_equal(utf8_strrpos($str, 'i'), 17);
+		$this->assertEquals(17, utf8_strrpos($str, 'i'));
 	}
 
-	protected function test_linefeed_search()
+	public function test_linefeed_search()
 	{
 		$str = "Iñtërnâtiônàlizætiø\nn";
-		$this->is_equal(utf8_strrpos($str, "\n"), 19);
+		$this->assertEquals(19, utf8_strrpos($str, "\n"));
 	}
 }

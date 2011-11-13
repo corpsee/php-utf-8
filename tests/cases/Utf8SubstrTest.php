@@ -1,84 +1,84 @@
 <?php
 
-class Utf8SubstrTest extends TestLibTestCase
+require_once dirname(__FILE__).'/../bootstrap.php';
+
+class Utf8SubstrTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_substr()';
-
-	protected function test_utf8()
+	public function test_utf8()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_substr($str, 0, 2), 'Iñ');
+		$this->assertEquals('Iñ', utf8_substr($str, 0, 2));
 	}
 
-	protected function test_utf8_two()
+	public function test_utf8_two()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_substr($str, 2, 2), 'të');
+		$this->assertEquals('të', utf8_substr($str, 2, 2));
 	}
 
-	protected function test_utf8_zero()
+	public function test_utf8_zero()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_substr($str, 0), 'Iñtërnâtiônàlizætiøn');
+		$this->assertEquals('Iñtërnâtiônàlizætiøn', utf8_substr($str, 0));
 	}
 
-	protected function test_utf8_zero_zero()
+	public function test_utf8_zero_zero()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_substr($str, 0, 0), '');
+		$this->assertEquals('', utf8_substr($str, 0, 0));
 	}
 
-	protected function test_start_great_than_length()
+	public function test_start_great_than_length()
 	{
 		$str = 'Iñt';
-		$this->is_empty(utf8_substr($str, 4));
+		$this->assertEmpty(utf8_substr($str, 4));
 	}
 
-	protected function test_compare_start_great_than_length()
+	public function test_compare_start_great_than_length()
 	{
 		$str = 'abc';
-		$this->is_equal(utf8_substr($str, 4), substr($str, 4));
+		$this->assertEquals(substr($str, 4), utf8_substr($str, 4));
 	}
 
-	protected function test_length_beyond_string()
+	public function test_length_beyond_string()
 	{
 		$str = 'Iñt';
-		$this->is_equal(utf8_substr($str, 1, 5),'ñt');
+		$this->assertEquals('ñt', utf8_substr($str, 1, 5));
 	}
 
-	protected function test_compare_length_beyond_string()
+	public function test_compare_length_beyond_string()
 	{
 		$str = 'abc';
-		$this->is_equal(utf8_substr($str, 1, 5), substr($str, 1, 5));
+		$this->assertEquals(substr($str, 1, 5), utf8_substr($str, 1, 5));
 	}
 
-	protected function test_start_negative()
+	public function test_start_negative()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_substr($str, -4), 'tiøn');
+		$this->assertEquals('tiøn', utf8_substr($str, -4));
 	}
 
-	protected function test_length_negative()
+	public function test_length_negative()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_substr($str, 10, -2), 'nàlizæti');
+		$this->assertEquals('nàlizæti', utf8_substr($str, 10, -2));
 	}
 
-	protected function test_start_length_negative()
+	public function test_start_length_negative()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_substr($str, -4, -2), 'ti');
+		$this->assertEquals('ti', utf8_substr($str, -4, -2));
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str = "Iñ\ntërnâtiônàlizætiøn";
-		$this->is_equal(utf8_substr($str, 1, 5), "ñ\ntër");
+		$this->assertEquals("ñ\ntër", utf8_substr($str, 1, 5));
 	}
 
-	protected function test_long_length()
+	public function test_long_length()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_substr($str, 0, 15536), 'Iñtërnâtiônàlizætiøn');
+		$this->assertEquals('Iñtërnâtiônàlizætiøn', utf8_substr($str, 0, 15536));
 	}
 }

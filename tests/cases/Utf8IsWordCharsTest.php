@@ -1,24 +1,23 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/utils/unicode.php';
 require_once UTF8.'/utils/specials.php';
 
 
-class Utf8IsWordCharsTest extends TestLibTestCase
+class Utf8IsWordCharsTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_is_word_chars()';
-
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
-		$this->is_true(utf8_is_word_chars(''));
+		$this->assertTrue(utf8_is_word_chars(''));
 	}
 
-	protected function test_all_word_chars()
+	public function test_all_word_chars()
 	{
-		$this->is_true(utf8_is_word_chars('HelloWorld'));
+		$this->assertTrue(utf8_is_word_chars('HelloWorld'));
 	}
 
-	protected function test_specials()
+	public function test_specials()
 	{
 		$str = 'Hello '.
 			chr(0xe0 | (0x2234 >> 12)).
@@ -26,6 +25,6 @@ class Utf8IsWordCharsTest extends TestLibTestCase
 			chr(0x80 | (0x2234 & 0x003f)).
 			' World';
 
-		$this->is_false(utf8_is_word_chars($str));
+		$this->assertFalse(utf8_is_word_chars($str));
 	}
 }

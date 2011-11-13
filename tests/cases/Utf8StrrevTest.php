@@ -1,30 +1,29 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/strrev.php';
 
 
-class Utf8StrrevTest extends TestLibTestCase
+class Utf8StrrevTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_strrev()';
-
-	protected function test_reverse()
+	public function test_reverse()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$rev = 'nøitæzilànôitânrëtñI';
-		$this->is_equal(utf8_strrev($str), $rev);
+		$this->assertEquals($rev, utf8_strrev($str));
 	}
 
-	protected function test_empty_str()
+	public function test_empty_str()
 	{
 		$str = '';
 		$rev = '';
-		$this->is_equal(utf8_strrev($str), $rev);
+		$this->assertEquals($rev, utf8_strrev($str));
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str = "Iñtërnâtiôn\nàlizætiøn";
 		$rev = "nøitæzilà\nnôitânrëtñI";
-		$this->is_equal(utf8_strrev($str), $rev);
+		$this->assertEquals($rev, utf8_strrev($str));
 	}
 }

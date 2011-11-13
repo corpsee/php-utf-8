@@ -1,58 +1,57 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/trim.php';
 
 
-class Utf8LtrimTest extends TestLibTestCase
+class Utf8LtrimTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_ltrim()';
-
-	protected function test_trim()
+	public function test_trim()
 	{
 		$str = 'ñtërnâtiônàlizætiøn';
 		$trimmed = 'tërnâtiônàlizætiøn';
-		$this->is_equal(utf8_ltrim($str, 'ñ'), $trimmed);
+		$this->assertEquals($trimmed, utf8_ltrim($str, 'ñ'));
 	}
 
-	protected function test_no_trim()
+	public function test_no_trim()
 	{
 		$str = ' Iñtërnâtiônàlizætiøn';
 		$trimmed = ' Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_ltrim($str, 'ñ'), $trimmed);
+		$this->assertEquals($trimmed, utf8_ltrim($str, 'ñ'));
 	}
 
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
 		$str = '';
 		$trimmed = '';
-		$this->is_equal(utf8_ltrim($str), $trimmed);
+		$this->assertEquals($trimmed, utf8_ltrim($str));
 	}
 
-	protected function test_forward_slash()
+	public function test_forward_slash()
 	{
 		$str = '/Iñtërnâtiônàlizætiøn';
 		$trimmed = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_ltrim($str, '/'), $trimmed);
+		$this->assertEquals($trimmed, utf8_ltrim($str, '/'));
 	}
 
-	protected function test_negate_char_class()
+	public function test_negate_char_class()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$trimmed = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_ltrim($str, '^s'), $trimmed);
+		$this->assertEquals($trimmed, utf8_ltrim($str, '^s'));
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str = "ñ\nñtërnâtiônàlizætiøn";
 		$trimmed = "\nñtërnâtiônàlizætiøn";
-		$this->is_equal(utf8_ltrim($str, 'ñ'), $trimmed);
+		$this->assertEquals($trimmed, utf8_ltrim($str, 'ñ'));
 	}
 
-	protected function test_linefeed_mask()
+	public function test_linefeed_mask()
 	{
 		$str = "ñ\nñtërnâtiônàlizætiøn";
 		$trimmed = "tërnâtiônàlizætiøn";
-		$this->is_equal(utf8_ltrim($str, "ñ\n"), $trimmed);
+		$this->assertEquals($trimmed, utf8_ltrim($str, "ñ\n"));
 	}
 }

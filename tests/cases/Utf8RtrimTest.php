@@ -1,44 +1,43 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/trim.php';
 
 
-class Utf8RtrimTest extends TestLibTestCase
+class Utf8RtrimTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_rtrim()';
-
-	protected function test_trim()
+	public function test_trim()
 	{
 		$str = 'Iñtërnâtiônàlizætiø';
 		$trimmed = 'Iñtërnâtiônàlizæti';
-		$this->is_equal(utf8_rtrim($str, 'ø'), $trimmed);
+		$this->assertEquals($trimmed, utf8_rtrim($str, 'ø'));
 	}
 
-	protected function test_no_trim()
+	public function test_no_trim()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn ';
 		$trimmed = 'Iñtërnâtiônàlizætiøn ';
-		$this->is_equal(utf8_rtrim($str, 'ø'), $trimmed);
+		$this->assertEquals($trimmed, utf8_rtrim($str, 'ø'));
 	}
 
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
 		$str = '';
 		$trimmed = '';
-		$this->is_equal(utf8_rtrim($str), $trimmed);
+		$this->assertEquals($trimmed, utf8_rtrim($str));
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str = "Iñtërnâtiônàlizætiø\nø";
 		$trimmed = "Iñtërnâtiônàlizætiø\n";
-		$this->is_equal(utf8_rtrim($str, 'ø'), $trimmed);
+		$this->assertEquals($trimmed, utf8_rtrim($str, 'ø'));
 	}
 
-	protected function test_linefeed_mask()
+	public function test_linefeed_mask()
 	{
 		$str = "Iñtërnâtiônàlizætiø\nø";
 		$trimmed = "Iñtërnâtiônàlizæti";
-		$this->is_equal(utf8_rtrim($str, "ø\n"), $trimmed);
+		$this->assertEquals($trimmed, utf8_rtrim($str, "ø\n"));
 	}
 }

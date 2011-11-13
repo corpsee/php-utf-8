@@ -1,13 +1,12 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/str_split.php';
 
 
-class Utf8StrSplitTest extends TestLibTestCase
+class Utf8StrSplitTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_str_split()';
-
-	protected function test_split_one_char()
+	public function test_split_one_char()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$array = array(
@@ -15,40 +14,40 @@ class Utf8StrSplitTest extends TestLibTestCase
 			'z','æ','t','i','ø','n',
 			);
 
-		$this->is_equal(utf8_str_split($str), $array);
+		$this->assertEquals($array, utf8_str_split($str));
 	}
 
-	protected function test_split_five_chars()
+	public function test_split_five_chars()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$array = array(
 			'Iñtër','nâtiô','nàliz','ætiøn',
 			);
 
-		$this->is_equal(utf8_str_split($str, 5), $array);
+		$this->assertEquals($array, utf8_str_split($str, 5));
 	}
 
-	protected function test_split_six_chars()
+	public function test_split_six_chars()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$array = array(
 			'Iñtërn','âtiônà', 'lizæti','øn',
 			);
 
-		$this->is_equal(utf8_str_split($str, 6), $array);
+		$this->assertEquals($array, utf8_str_split($str, 6));
 	}
 
-	protected function test_split_long()
+	public function test_split_long()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$array = array(
 			'Iñtërnâtiônàlizætiøn',
 			);
 
-		$this->is_equal(utf8_str_split($str, 40), $array);
+		$this->assertEquals($array, utf8_str_split($str, 40));
 	}
 
-	protected function test_split_newline()
+	public function test_split_newline()
 	{
 		$str = "Iñtërn\nâtiônàl\nizætiøn\n";
 		$array = array(
@@ -56,7 +55,7 @@ class Utf8StrSplitTest extends TestLibTestCase
 			'z','æ','t','i','ø','n',"\n",
 			);
 
-		$this->is_equal(utf8_str_split($str), $array);
+		$this->assertEquals($array, utf8_str_split($str));
 	}
 
 }
