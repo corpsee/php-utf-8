@@ -1,32 +1,31 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/utils/ascii.php';
 
 
-class Utf8AccentsToAsciiTest extends TestLibTestCase
+class Utf8AccentsToAsciiTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_accents_to_ascii()';
-
-	protected function test_empty_str()
+	public function test_empty_str()
 	{
-		$this->is_equal(utf8_accents_to_ascii(''), '');
+		$this->assertEquals('', utf8_accents_to_ascii(''));
 	}
 
-	protected function test_lowercase()
+	public function test_lowercase()
 	{
 		$str = 'ô';
-		$this->is_equal(utf8_accents_to_ascii($str, 'lower'), 'o');
+		$this->assertEquals('o', utf8_accents_to_ascii($str, 'lower'));
 	}
 
-	protected function test_uppercase()
+	public function test_uppercase()
 	{
 		$str = 'Ô';
-		$this->is_equal(utf8_accents_to_ascii($str, 'upper'), 'O');
+		$this->assertEquals('O', utf8_accents_to_ascii($str, 'upper'));
 	}
 
-	protected function test_both()
+	public function test_both()
 	{
 		$str = 'ôÔ';
-		$this->is_equal(utf8_accents_to_ascii($str, 'both'), 'oO');
+		$this->assertEquals('oO', utf8_accents_to_ascii($str, 'both'));
 	}
 }

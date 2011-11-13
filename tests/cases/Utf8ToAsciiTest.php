@@ -1,45 +1,44 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/utils/ascii.php';
 
 
-class Utf8ToAsciiTest extends TestLibTestCase
+class Utf8ToAsciiTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_to_ascii()';
-
-	protected function test_utf8()
+	public function test_utf8()
 	{
 		$str = 'testiñg';
-		$this->is_equal(utf8_to_ascii($str), 'testig');
+		$this->assertEquals('testig', utf8_to_ascii($str));
 	}
 
-	protected function test_ascii()
+	public function test_ascii()
 	{
 		$str = 'testing';
-		$this->is_equal(utf8_to_ascii($str), 'testing');
+		$this->assertEquals('testing', utf8_to_ascii($str));
 	}
 
-	protected function test_invalid_char()
+	public function test_invalid_char()
 	{
 		$str = "tes\xe9ting";
-		$this->is_equal(utf8_to_ascii($str), 'testing');
+		$this->assertEquals('testing', utf8_to_ascii($str));
 	}
 
-	protected function testE_empty_str()
+	public function test_empty_str()
 	{
 		$str = '';
-		$this->is_equal(utf8_to_ascii($str), '');
+		$this->assertEmpty(utf8_to_ascii($str));
 	}
 
-	protected function test_nul_and_non_7_bit()
+	public function test_nul_and_non_7_bit()
 	{
 		$str = "a\x00ñ\x00c";
-		$this->is_equal(utf8_to_ascii($str, 'both'), 'ac');
+		$this->assertEquals('ac', utf8_to_ascii($str, 'both'));
 	}
 
-	protected function test_nul()
+	public function test_nul()
 	{
 		$str = "a\x00b\x00c";
-		$this->is_equal(utf8_to_ascii($str, 'ctrl_chars'), 'abc');
+		$this->assertEquals('abc', utf8_to_ascii($str, 'ctrl_chars'));
 	}
 }

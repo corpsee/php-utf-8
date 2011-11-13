@@ -1,20 +1,20 @@
 <?php
 
-class Utf8StrtoupperTest extends TestLibTestCase
-{
-	protected $name = 'utf8_strtoupper()';
+require_once dirname(__FILE__).'/../bootstrap.php';
 
-	protected function test_upper()
+class Utf8StrtoupperTest extends PHPUnit_Framework_TestCase
+{
+	public function test_upper()
 	{
 		$str = 'iñtërnâtiônàlizætiøn';
 		$upper = 'IÑTËRNÂTIÔNÀLIZÆTIØN';
-		$this->is_equal(utf8_strtoupper($str), $upper);
+		$this->assertEquals($upper, utf8_strtoupper($str));
 	}
 
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
 		$str = '';
 		$upper = '';
-		$this->is_equal(utf8_strtoupper($str), $upper);
+		$this->assertEquals($upper, utf8_strtoupper($str));
 	}
 }

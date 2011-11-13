@@ -1,59 +1,58 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/strcasecmp.php';
 
 
-class Utf8StrcasecmpTest extends TestLibTestCase
+class Utf8StrcasecmpTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_strcasecmp()';
-
-	protected function test_compare_equal()
+	public function test_compare_equal()
 	{
 		$str_x = 'iñtërnâtiônàlizætiøn';
 		$str_y = 'IÑTËRNÂTIÔNÀLIZÆTIØN';
-		$this->is_equal(utf8_strcasecmp($str_x, $str_y),0);
+		$this->assertEquals(0, utf8_strcasecmp($str_x, $str_y));
 	}
 
-	protected function test_less()
+	public function test_less()
 	{
 		$str_x = 'iñtërnâtiônàlizætiøn';
 		$str_y = 'IÑTËRNÂTIÔÀLIZÆTIØN';
-		$this->is_true(utf8_strcasecmp($str_x, $str_y) < 0);
+		$this->assertTrue(utf8_strcasecmp($str_x, $str_y) < 0);
 	}
 
-	protected function test_greater()
+	public function test_greater()
 	{
 		$str_x = 'iñtërnâtiôàlizætiøn';
 		$str_y = 'IÑTËRNÂTIÔNÀLIZÆTIØN';
-		$this->is_true(utf8_strcasecmp($str_x, $str_y) > 0);
+		$this->assertTrue(utf8_strcasecmp($str_x, $str_y) > 0);
 	}
 
-	protected function test_empty_x()
+	public function test_empty_x()
 	{
 		$str_x = '';
 		$str_y = 'IÑTËRNÂTIÔNÀLIZÆTIØN';
-		$this->is_true(utf8_strcasecmp($str_x, $str_y) < 0);
+		$this->assertTrue(utf8_strcasecmp($str_x, $str_y) < 0);
 	}
 
-	protected function test_empty_y()
+	public function test_empty_y()
 	{
 		$str_x = 'iñtërnâtiôàlizætiøn';
 		$str_y = '';
-		$this->is_true(utf8_strcasecmp($str_x, $str_y) > 0);
+		$this->assertTrue(utf8_strcasecmp($str_x, $str_y) > 0);
 	}
 
-	protected function test_empty_both()
+	public function test_empty_both()
 	{
 		$str_x = '';
 		$str_y = '';
-		$this->is_true(utf8_strcasecmp($str_x, $str_y) == 0);
+		$this->assertTrue(utf8_strcasecmp($str_x, $str_y) == 0);
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str_x = "iñtërnâtiôn\nàlizætiøn";
 		$str_y = "IÑTËRNÂTIÔN\nÀLIZÆTIØN";
-		$this->is_true(utf8_strcasecmp($str_x, $str_y) == 0);
+		$this->assertTrue(utf8_strcasecmp($str_x, $str_y) == 0);
 	}
 
 }

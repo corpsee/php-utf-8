@@ -1,30 +1,30 @@
 <?php
 
-class Utf8StrlenTest extends TestLibTestCase
-{
-	protected $name = 'utf8_strlen()';
+require_once dirname(__FILE__).'/../bootstrap.php';
 
-    public function test_utf8()
+class Utf8StrlenTest extends PHPUnit_Framework_TestCase
+{
+	public function test_utf8()
     {
 		$str = 'Iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_strlen($str), 20);
+		$this->assertEquals(20, utf8_strlen($str));
     }
 
-	protected function test_utf8_invalid()
+	public function test_utf8_invalid()
 	{
 		$str = "Iñtërnâtiôn\xe9àlizætiøn";
-		$this->is_equal(utf8_strlen($str), 20);
+		$this->assertEquals(20, utf8_strlen($str));
 	}
 
-	protected function test_ascii()
+	public function test_ascii()
 	{
 		$str = 'ABC 123';
-		$this->is_equal(utf8_strlen($str), 7);
+		$this->assertEquals(7, utf8_strlen($str));
 	}
 
-	protected function test_empty_str()
+	public function test_empty_str()
 	{
 		$str = '';
-		$this->is_equal(utf8_strlen($str), 0);
+		$this->assertEquals(0, utf8_strlen($str));
 	}
 }

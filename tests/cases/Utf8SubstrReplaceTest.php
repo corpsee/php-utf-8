@@ -1,51 +1,50 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/substr_replace.php';
 
 
-class Utf8SubstrReplaceTest extends TestLibTestCase
+class Utf8SubstrReplaceTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_substr_replace()';
-
-	protected function test_replace_start()
+	public function test_replace_start()
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$replaced = 'IñtërnâtX';
-		$this->is_equal(utf8_substr_replace($str, 'X', 8), $replaced);
+		$this->assertEquals($replaced, utf8_substr_replace($str, 'X', 8));
 	}
 
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
 		$str = '';
 		$replaced = 'X';
-		$this->is_equal(utf8_substr_replace($str, 'X', 8), $replaced);
+		$this->assertEquals($replaced, utf8_substr_replace($str, 'X', 8));
 	}
 
-	protected function test_negative()
+	public function test_negative()
 	{
 		$str = 'testing';
 		$replaced = substr_replace($str, 'foo', -2, -2);
-		$this->is_equal(utf8_substr_replace($str, 'foo', -2, -2), $replaced);
+		$this->assertEquals($replaced, utf8_substr_replace($str, 'foo', -2, -2));
 	}
 
-	protected function test_zero()
+	public function test_zero()
 	{
 		$str = 'testing';
 		$replaced = substr_replace($str, 'foo', 0, 0);
-		$this->is_equal(utf8_substr_replace($str, 'foo', 0, 0), $replaced);
+		$this->assertEquals($replaced, utf8_substr_replace($str, 'foo', 0, 0));
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str = "Iñ\ntërnâtiônàlizætiøn";
 		$replaced = "Iñ\ntërnâtX";
-		$this->is_equal(utf8_substr_replace($str, 'X', 9), $replaced);
+		$this->assertEquals($replaced, utf8_substr_replace($str, 'X', 9));
 	}
 
-	protected function test_linefeed_replace()
+	public function test_linefeed_replace()
 	{
 		$str = "Iñ\ntërnâtiônàlizætiøn";
 		$replaced = "Iñ\ntërnâtX\nY";
-		$this->is_equal(utf8_substr_replace($str, "X\nY", 9), $replaced);
+		$this->assertEquals($replaced, utf8_substr_replace($str, "X\nY", 9));
 	}
 }

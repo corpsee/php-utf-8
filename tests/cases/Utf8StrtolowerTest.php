@@ -1,20 +1,20 @@
 <?php
 
-class Utf8StrtolowerTest extends TestLibTestCase
-{
-	protected $name = 'utf8_strtolower()';
+require_once dirname(__FILE__).'/../bootstrap.php';
 
-	protected function test_lower()
+class Utf8StrtolowerTest extends PHPUnit_Framework_TestCase
+{
+	public function test_lower()
 	{
 		$str = 'IÑTËRNÂTIÔNÀLIZÆTIØN';
 		$lower = 'iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_strtolower($str), $lower);
+		$this->assertEquals($lower, utf8_strtolower($str));
 	}
 
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
 		$str = '';
 		$lower = '';
-		$this->is_equal(utf8_strtolower($str), $lower);
+		$this->assertEquals($lower, utf8_strtolower($str));
 	}
 }

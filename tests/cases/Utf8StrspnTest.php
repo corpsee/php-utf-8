@@ -1,45 +1,44 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/functions/strspn.php';
 
 
-class Utf8StrspnTest extends TestLibTestCase
+class Utf8StrspnTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_strspn()';
-
-	protected function test_match()
+	public function test_match()
 	{
 		$str = 'iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_strspn($str, 'âëiônñrt'), 11);
+		$this->assertEquals(11, utf8_strspn($str, 'âëiônñrt'));
 	}
 
-	protected function test_match_two()
+	public function test_match_two()
 	{
 		$str = 'iñtërnâtiônàlizætiøn';
-		$this->is_equal(utf8_strspn($str, 'iñtë'), 4);
+		$this->assertEquals(4, utf8_strspn($str, 'iñtë'));
 	}
 
-	protected function test_compare_strspn()
+	public function test_compare_strspn()
 	{
 		$str = 'aeioustr';
-		$this->is_equal(utf8_strspn($str, 'saeiou'), strspn($str, 'saeiou'));
+		$this->assertEquals(strspn($str, 'saeiou'), utf8_strspn($str, 'saeiou'));
 	}
 
-	protected function test_match_ascii()
+	public function test_match_ascii()
 	{
 		$str = 'internationalization';
-		$this->is_equal(utf8_strspn($str, 'aeionrt'), strspn($str, 'aeionrt'));
+		$this->assertEquals(strspn($str, 'aeionrt'), utf8_strspn($str, 'aeionrt'));
 	}
 
-	protected function test_linefeed()
+	public function test_linefeed()
 	{
 		$str = "iñtërnât\niônàlizætiøn";
-		$this->is_equal(utf8_strspn($str, 'âëiônñrt'), 8);
+		$this->assertEquals(8, utf8_strspn($str, 'âëiônñrt'));
 	}
 
-	protected function test_linefeed_mask()
+	public function test_linefeed_mask()
 	{
 		$str = "iñtërnât\niônàlizætiøn";
-		$this->is_equal(utf8_strspn($str, "âëiônñrt\n"), 12);
+		$this->assertEquals(12, utf8_strspn($str, "âëiônñrt\n"));
 	}
 }

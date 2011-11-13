@@ -1,18 +1,17 @@
 <?php
 
+require_once dirname(__FILE__).'/../bootstrap.php';
 require_once UTF8.'/utils/unicode.php';
 
 
-class Utf8ToUnicodeTest extends TestLibTestCase
+class Utf8ToUnicodeTest extends PHPUnit_Framework_TestCase
 {
-	protected $name = 'utf8_to_unicode()';
-
-	protected function test_empty_string()
+	public function test_empty_string()
 	{
-		$this->is_equal(utf8_to_unicode(''), array());
+		$this->assertEquals(array(), utf8_to_unicode(''));
 	}
 
-	protected function test_string()
+	public function test_string()
 	{
 		$unicode = array();
 		$unicode[0] = 73;
@@ -36,6 +35,6 @@ class Utf8ToUnicodeTest extends TestLibTestCase
 		$unicode[18] = 248;
 		$unicode[19] = 110;
 
-		$this->is_equal(utf8_to_unicode('Iñtërnâtiônàlizætiøn'), $unicode);
+		$this->assertEquals($unicode, utf8_to_unicode('Iñtërnâtiônàlizætiøn'));
 	}
 }
