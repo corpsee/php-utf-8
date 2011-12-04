@@ -1,23 +1,13 @@
 <?php
-/**
- * The following functions assume mbstring internal encoding is set to UTF-8.
- *
- * @package php-utf8
- * @subpackage mbstring
- */
 
-/**
- *  Define UTF8_CORE as required
- */
-if (!defined('UTF8_CORE'))
-	define('UTF8_CORE', TRUE);
+namespace utf8;
 
-/*
- * utf8_strpos() and utf8_strrpos() need utf8_bad_strip() to strip invalid
- * characters. Mbstring doesn't do this while the Native implementation does.
- */
+
+// utf8_strpos() and utf8_strrpos() need utf8_bad_strip() to strip invalid
+// characters. Mbstring doesn't do this while the Native implementation does.
 require_once PHP_UTF8_DIR.'/utils/patterns.php';
 require_once PHP_UTF8_DIR.'/utils/bad.php';
+
 
 /**
  * Wrapper round mb_strlen.
@@ -27,10 +17,27 @@ require_once PHP_UTF8_DIR.'/utils/bad.php';
  * @param string $str UTF-8 string
  * @return int number of UTF-8 characters in string
  */
-function utf8_strlen($str)
+
+ /* Function: len
+
+   Wrapper round mb_strlen.
+
+   This function does not count bad bytes in the string - these are simply ignored.
+
+   Parameters:
+      str - A UTF-8 string.
+
+   Returns:
+      The length (integer) of a string.
+
+   See also:
+      <mb_strlen at http://nl.php.net/manual/en/function.mb-strlen.php>
+*/
+function len($str)
 {
 	return mb_strlen($str);
 }
+
 
 /**
  * Wrapper around mb_strpos.
@@ -42,7 +49,7 @@ function utf8_strlen($str)
  * @param integer offset in characters (from left)
  * @return mixed integer position or FALSE on failure
  */
-function utf8_strpos($str, $search, $offset = false)
+function pos($str, $search, $offset = false)
 {
 	$str = utf8_bad_clean($str);
 
@@ -62,7 +69,7 @@ function utf8_strpos($str, $search, $offset = false)
  * @param integer $offset (optional) offset (from left)
  * @return mixed integer position or FALSE on failure
  */
-function utf8_strrpos($str, $search, $offset = false)
+function rpos($str, $search, $offset = false)
 {
 	$str = utf8_bad_clean($str);
 
@@ -99,7 +106,7 @@ function utf8_strrpos($str, $search, $offset = false)
  * @param integer $length (optional) length in UTF-8 characters from offset
  * @return mixed string or FALSE if failure
  */
-function utf8_substr($str, $offset, $length = false)
+function sub($str, $offset, $length = false)
 {
 	if ($length === false)
 		return mb_substr($str, $offset);
@@ -119,7 +126,7 @@ function utf8_substr($str, $offset, $length = false)
  * @param string $str
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function utf8_strtolower($str)
+function tolower($str)
 {
 	return mb_strtolower($str);
 }
@@ -136,7 +143,7 @@ function utf8_strtolower($str)
  * @param string
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function utf8_strtoupper($str)
+function toupper($str)
 {
 	return mb_strtoupper($str);
 }
@@ -153,7 +160,7 @@ function utf8_strtoupper($str)
  * @param string
  * @return string with first char of each word uppercase
  */
-function utf8_ucwords($str)
+function ucwords($str)
 {
 	return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
 }

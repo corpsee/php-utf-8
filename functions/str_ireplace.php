@@ -29,10 +29,10 @@ function utf8_ireplace($search, $replace, $str, $count = null)
 			return $str;
 
 		$lendif = strlen($replace) - strlen($search);
-		$search = utf8_strtolower($search);
+		$search = utf8\tolower($search);
 
 		$search = preg_quote($search);
-		$lstr = utf8_strtolower($str);
+		$lstr = utf8\tolower($str);
 		$i = 0;
 		$matched = 0;
 

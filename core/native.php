@@ -1,33 +1,31 @@
 <?php
-/**
- * @package php-utf8
- * @subpackage native
- */
 
-/**
- * Define UTF8_CORE as required
- */
-if(!defined('UTF8_CORE'))
-	define('UTF8_CORE', true);
+namespace utf8;
 
-/**
- * Unicode aware replacement for strlen().
- *
- * Returns the number of characters in the string (not the number of bytes),
- * replacing multibyte characters with a single byte equivalent utf8_decode()
- * converts characters that are not in ISO-8859-1 to '?', which, for the purpose
- * of counting, is alright.
- * It's much faster than iconv_strlen
- *
- * Note: this function does not count bad UTF-8 bytes in the string, they are ignored.
- *
- * @author <chernyshevsky at hotmail dot com>
- * @link   http://www.php.net/manual/en/function.strlen.php
- * @link   http://www.php.net/manual/en/function.utf8-decode.php
- * @param string $str UTF-8 string
- * @return int number of UTF-8 characters in string
- */
-function utf8_strlen($str)
+
+/* Function: len
+
+   Unicode aware replacement for *strlen*.
+
+   Returns the number of characters in the string (not the number of bytes),
+   replacing multibyte characters with a single byte equivalent utf8_decode
+   converts characters that are not in ISO-8859-1 to '?', which, for the purpose
+   of counting, is alright. It's much faster than iconv_strlen.
+
+   Author:
+      <chernyshevsky at hotmail dot com>
+
+   Parameters:
+      str - A UTF-8 string.
+
+   Returns:
+      The length (integer) of a string.
+
+   See also:
+      <strlen at http://php.net/manual/en/function.strlen.php>
+      <strlen at http://php.net/manual/en/function.utf8-decode.php>
+*/
+function len($str)
 {
 	return strlen(utf8_decode(utf8_bad_clean($str)));
 }
@@ -46,29 +44,29 @@ function utf8_strlen($str)
  * @param integer $offset offset in characters (from left)
  * @return mixed integer position or FALSE on failure
  */
-function utf8_strpos($str, $needle, $offset = false)
+function pos($str, $needle, $offset = false)
 {
-	if ($offset === false)
-	{
+	if ($offset === false) {
 		$ar = explode($needle, $str, 2);
 
 		//if (count($ar) > 1)
-		if (isset($ar[1]))
-			return utf8_strlen($ar[0]);
+		if (isset($ar[1])) {
+			return len($ar[0]);
+		}
 
 		return false;
 	}
 
-	if (!is_int($offset))
-	{
+	if (!is_int($offset)) {
 		trigger_error('utf8_strpos: Offset must be an integer', E_USER_ERROR);
 		return false;
 	}
 
-	$str = utf8_substr($str, $offset);
+	$str = sub($str, $offset);
 
-	if (($pos = utf8_strpos($str, $needle)) !== false)
+	if (($pos = pos($str, $needle)) !== false) {
 		return $pos + $offset;
+	}
 
 	return false;
 }
@@ -87,35 +85,33 @@ function utf8_strpos($str, $needle, $offset = false)
  * @param integer $offset (optional) offset (from left)
  * @return mixed integer position or FALSE on failure
  */
-function utf8_strrpos($str, $needle, $offset = false)
+function rpos($str, $needle, $offset = false)
 {
-	if ($offset === false)
-	{
+	if ($offset === false) {
 		$ar = explode($needle, $str);
 
 		//if (count($ar) > 1)
-		if (isset($ar[1]))
-		{
+		if (isset($ar[1])) {
 			// Pop off the end of the string where the last match was made
 			array_pop($ar);
 			$str = implode($needle, $ar);
 
-			return utf8_strlen($str);
+			return len($str);
 		}
 
 		return false;
 	}
 
-	if (!is_int($offset))
-	{
+	if (!is_int($offset)) {
 		trigger_error('utf8_strrpos expects parameter 3 to be long', E_USER_WARNING);
 		return false;
 	}
 
-	$str = utf8_substr($str, $offset);
+	$str = sub($str, $offset);
 
-	if (($pos = utf8_strrpos($str, $needle)) !== false)
+	if (($pos = rpos($str, $needle)) !== false) {
 		return $pos + $offset;
+	}
 
 	return false;
 }
@@ -146,27 +142,29 @@ function utf8_strrpos($str, $needle, $offset = false)
  * @param integer $length (optional) length in UTF-8 characters from offset
  * @return mixed string or FALSE if failure
  */
-function utf8_substr($str, $offset, $length = false)
+function sub($str, $offset, $length = false)
 {
 	// Generates E_NOTICE for PHP4 objects, but not PHP5 objects
 	$str = (string) $str;
 	$offset = (int) $offset;
 
-	if ($length)
+	if ($length) {
 		$length = (int) $length;
+	}
 
 	// Handle trivial cases
-	if ($length === 0)
+	if ($length === 0) {
 		return '';
-	if ($offset < 0 && $length < 0 && $length < $offset)
+	}
+	if ($offset < 0 && $length < 0 && $length < $offset) {
 		return '';
+	}
 
 	// Normalise negative offsets (we could use a tail
 	// anchored pattern, but they are horribly slow!)
-	if ($offset < 0)
-	{
+	if ($offset < 0) {
 		// See notes
-		$strlen = utf8_strlen($str);
+		$strlen = len($str);
 		$offset = $strlen + $offset;
 
 		if($offset < 0)
@@ -178,8 +176,7 @@ function utf8_substr($str, $offset, $length = false)
 
 	// Establish a pattern for offset, a
 	// non-captured group equal in length to offset
-	if ($offset > 0)
-	{
+	if ($offset > 0) {
 		$ox = (int) ($offset / 65535);
 		$oy = $offset % 65535;
 
@@ -187,26 +184,26 @@ function utf8_substr($str, $offset, $length = false)
 			$offset_pattern = '(?:.{65535}){'.$ox.'}';
 
 		$offset_pattern = '^(?:'.$offset_pattern.'.{'.$oy.'})';
-	}
-	else
+	} else {
 		$offset_pattern = '^';
+	}
 
 
 	// Establish a pattern for length
-	if (!$length)
+	if (!$length) {
 		$length_pattern = '(.*)$'; // The rest of the string
-	else
-	{
+	} else {
 		// See notes
-		if (!isset($strlen))
-			$strlen = utf8_strlen($str);
+		if (!isset($strlen)) {
+			$strlen = len($str);
+		}
 
 		// Another trivial case
-		if ($offset > $strlen)
+		if ($offset > $strlen) {
 			return '';
+		}
 
-		if ($length > 0)
-		{
+		if ($length > 0) {
 			// Reduce any length that would go passed the end of the string
 			$length = min($strlen - $offset, $length);
 
@@ -214,30 +211,32 @@ function utf8_substr($str, $offset, $length = false)
 			$ly = $length % 65535;
 
 			// Negative length requires a captured group of length characters
-			if ($lx)
+			if ($lx) {
 				$length_pattern = '(?:.{65535}){'.$lx.'}';
+			}
 
 			$length_pattern = '('.$length_pattern.'.{'.$ly.'})';
-		}
-		elseif ($length < 0)
-		{
-			if ($length < ($offset - $strlen))
+		} elseif ($length < 0) {
+			if ($length < ($offset - $strlen)) {
 				return '';
+			}
 
 			$lx = (int) ((-$length) / 65535);
 			$ly = (-$length) % 65535;
 
 			// Negative length requires ... capture everything except a group of
 			// -length characters anchored at the tail-end of the string
-			if ($lx)
+			if ($lx) {
 				$length_pattern = '(?:.{65535}){'.$lx.'}';
+			}
 
 			$length_pattern = '(.*)(?:'.$length_pattern.'.{'.$ly.'})$';
 		}
 	}
 
-	if(!preg_match('#'.$offset_pattern.$length_pattern.'#us', $str, $match))
+	if(!preg_match('#'.$offset_pattern.$length_pattern.'#us', $str, $match)) {
 		return '';
+	}
 
 	return $match[1];
 }
@@ -260,7 +259,7 @@ function utf8_substr($str, $offset, $length = false)
  * @param string $string
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function utf8_strtolower($string)
+function tolower($string)
 {
 	static $UTF8_UPPER_TO_LOWER;
 
@@ -345,7 +344,7 @@ function utf8_strtolower($string)
  * @param string $string
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function utf8_strtoupper($string)
+function toupper($string)
 {
 	static $UTF8_LOWER_TO_UPPER;
 
@@ -426,30 +425,18 @@ require_once PHP_UTF8_DIR.'/functions/substr_replace.php';
  * @param string
  * @return string with first char of each word uppercase
  */
-function utf8_ucwords($str)
+function ucwords($str)
 {
 	// Note: [\x0c\x09\x0b\x0a\x0d\x20] matches;
 	// Form feeds, horizontal tabs, vertical tabs, linefeeds and carriage returns
 	// This corresponds to the definition of a "word" defined at http://www.php.net/ucwords
 	$pattern = '/(^|([\x0c\x09\x0b\x0a\x0d\x20]+))([^\x0c\x09\x0b\x0a\x0d\x20]{1})[^\x0c\x09\x0b\x0a\x0d\x20]*/u';
-	return preg_replace_callback($pattern, '_utf8_ucwords_callback', $str);
-}
 
-/**
- * Callback function for preg_replace_callback call in utf8_ucwords.
- * You don't need to call this yourself.
- *
- * @access private
- * @uses utf8_ucwords
- * @uses utf8_strtoupper
- * @param array of matches corresponding to a single word
- * @return string with first char of the word in uppercase
- */
-function _utf8_ucwords_callback($matches)
-{
-	$leadingws = $matches[2];
-	$ucfirst = utf8_strtoupper($matches[3]);
-	$ucword = utf8_substr_replace(ltrim($matches[0]), $ucfirst, 0, 1);
+	return preg_replace_callback($pattern, function ($match) {
+		$leadingws = $match[2];
+		$ucfirst = toupper($match[3]);
+		$ucword = utf8_substr_replace(ltrim($match[0]), $ucfirst, 0, 1);
 
-	return $leadingws.$ucword;
+		return $leadingws.$ucword;
+	}, $str);
 }

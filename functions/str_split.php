@@ -18,7 +18,7 @@ function utf8_str_split($str, $split_len=1)
 	if (!preg_match('/^[0-9]+$/', $split_len) || $split_len < 1)
 		return false;
 
-	$len = utf8_strlen($str);
+	$len = utf8\len($str);
 	if($len <= $split_len)
 		return array($str);
 

@@ -21,12 +21,12 @@ function utf8_strspn($str, $mask, $start=null, $length=null)
 	$mask = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $mask);
 
 	if ($start !== null || $length !== null)
-		$str = utf8_substr($str, $start, $length);
+		$str = utf8\sub($str, $start, $length);
 
 	preg_match('/^['.$mask.']+/u', $str, $matches);
 
 	if (isset($matches[0]))
-		return utf8_strlen($matches[0]);
+		return utf8\len($matches[0]);
 
 	return 0;
 }

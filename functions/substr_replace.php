@@ -19,7 +19,7 @@ function utf8_substr_replace($str, $repl, $start, $length = null)
 	preg_match_all('/./us', $str, $ar);
 	preg_match_all('/./us', $repl, $rar);
 
-	$length = is_int($length) ? $length : utf8_strlen($str);
+	$length = is_int($length) ? $length : utf8\len($str);
 
 	array_splice($ar[0], $start, $length, $rar[0]);
 

@@ -15,8 +15,8 @@
  */
 function utf8_strcasecmp($str_x, $str_y)
 {
-	$str_x = utf8_strtolower($str_x);
-	$str_y = utf8_strtolower($str_y);
+	$str_x = utf8\tolower($str_x);
+	$str_y = utf8\tolower($str_y);
 
 	return strcmp($str_x, $str_y);
 }
