@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * PCRE Regular expressions for UTF-8.
  *
@@ -15,7 +18,7 @@
 /**
  * PCRE Pattern to check a UTF-8 string is valid.
  */
-define('PHP_UTF8_VALID_UTF_PATTERN',
+define('utf8\VALID_UTF_PATTERN',
 	'[\x00-\x7F]'.							# ASCII (including control chars)
 	'|[\xC2-\xDF][\x80-\xBF]'.				# Non-overlong 2-byte
 	'|\xE0[\xA0-\xBF][\x80-\xBF]'.			# Excluding overlongs
@@ -30,7 +33,7 @@ define('PHP_UTF8_VALID_UTF_PATTERN',
 /**
  * PCRE Pattern to match single UTF-8 characters.
  */
-define('PHP_UTF8_SINGLE_CHAR_UTF_PATTERN',
+define('utf8\SINGLE_CHAR_UTF_PATTERN',
 	'([\x00-\x7F])'.						# ASCII (including control chars)
 	'|([\xC2-\xDF][\x80-\xBF])'.			# Non-overlong 2-byte
 	'|(\xE0[\xA0-\xBF][\x80-\xBF])'.		# Excluding overlongs
@@ -44,7 +47,7 @@ define('PHP_UTF8_SINGLE_CHAR_UTF_PATTERN',
 /**
  * PCRE Pattern to locate bad bytes in a UTF-8 string.
  */
-define('PHP_UTF8_BAD_UTF_PATTERN',
+define('utf8\BAD_UTF_PATTERN',
 	'([\x00-\x7F]'.							# ASCII (including control chars)
 	'|[\xC2-\xDF][\x80-\xBF]'.				# Non-overlong 2-byte
 	'|\xE0[\xA0-\xBF][\x80-\xBF]'.			# Excluding overlongs

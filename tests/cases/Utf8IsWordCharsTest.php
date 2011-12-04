@@ -8,12 +8,12 @@ class Utf8IsWordCharsTest extends PHPUnit_Framework_TestCase
 {
 	public function test_empty_string()
 	{
-		$this->assertTrue(utf8_is_word_chars(''));
+		$this->assertTrue(utf8\isWordChars(''));
 	}
 
 	public function test_all_word_chars()
 	{
-		$this->assertTrue(utf8_is_word_chars('HelloWorld'));
+		$this->assertTrue(utf8\isWordChars('HelloWorld'));
 	}
 
 	public function test_specials()
@@ -24,6 +24,6 @@ class Utf8IsWordCharsTest extends PHPUnit_Framework_TestCase
 			chr(0x80 | (0x2234 & 0x003f)).
 			' World';
 
-		$this->assertFalse(utf8_is_word_chars($str));
+		$this->assertFalse(utf8\isWordChars($str));
 	}
 }

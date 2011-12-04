@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * Tools for validing a UTF-8 string is well formed.
  * The Original Code is Mozilla Communicator client code.
@@ -24,7 +27,7 @@
  * @param string $str UTF-8 encoded string
  * @return boolean TRUE if valid
  */
-function utf8_is_valid($str)
+function isValid($str)
 {
 	$mState = 0;  // Cached expected number of octets after the current octet
 	              // until the beginning of the next UTF8 character sequence
@@ -35,7 +38,7 @@ function utf8_is_valid($str)
 
 	for ($i = 0; $i < $len; $i++)
 	{
-		$in = ord($str{$i});
+		$in = \ord($str{$i});
 
 		if ($mState == 0)
 		{
@@ -162,7 +165,7 @@ function utf8_is_valid($str)
  * @param string $str UTF-8 string to check
  * @return boolean TRUE if string is valid UTF-8
  */
-function utf8_compliant($str)
+function compliant($str)
 {
 	if(empty($str))
 		return true;

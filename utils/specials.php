@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * Utilities for processing "special" characters in UTF-8.
  *
@@ -29,7 +32,7 @@
  * @access private
  * @return string
  */
-function utf8_specials_pattern()
+function specialsPattern()
 {
 	static $pattern = null;
 
@@ -88,7 +91,7 @@ function utf8_specials_pattern()
 			0xf8fb, 0xf8fc, 0xf8fd, 0xf8fe, 0xfe7c, 0xfe7d
 		);
 
-		$pattern = preg_quote(utf8_from_unicode($UTF8_SPECIAL_CHARS), '/');
+		$pattern = preg_quote(fromUnicode($UTF8_SPECIAL_CHARS), '/');
 		$pattern = '/[\x00-\x19'.$pattern.']/u';
 	}
 
@@ -107,9 +110,9 @@ function utf8_specials_pattern()
  * @param string $str string to check
  * @return boolean TRUE if the string only contains word characters
  */
-function utf8_is_word_chars($str)
+function isWordChars($str)
 {
-	return !(bool) preg_match(utf8_specials_pattern(), $str);
+	return !(bool) preg_match(specialsPattern(), $str);
 }
 
 /**
@@ -126,7 +129,7 @@ function utf8_is_word_chars($str)
  * @param string $repl (optional) Replace special with this string
  * @return string with common non-alphanumeric characters removed
  */
-function utf8_strip_specials($string, $repl='')
+function stripSpecials($string, $repl='')
 {
-	return preg_replace(utf8_specials_pattern(), $repl, $string);
+	return preg_replace(specialsPattern(), $repl, $string);
 }

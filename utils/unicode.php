@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * Tools for conversion between UTF-8 and unicode
  * The Original Code is Mozilla Communicator client code.
@@ -29,7 +32,7 @@
  * @see utf8_from_unicode
  * @see http://hsivonen.iki.fi/php-utf8/
  */
-function utf8_to_unicode($str)
+function toUnicode($str)
 {
 	$mState = 0; // Cached expected number of octets after the current octet
 	             // until the beginning of the next UTF8 character sequence
@@ -41,7 +44,7 @@ function utf8_to_unicode($str)
 
 	for ($i = 0; $i < $len; $i++)
 	{
-		$in = ord($str[$i]);
+		$in = \ord($str[$i]);
 
 		if ($mState == 0)
 		{
@@ -174,7 +177,7 @@ function utf8_to_unicode($str)
  * @return mixed UTF-8 string or FALSE if array contains invalid code points
  * @author <hsivonen@iki.fi>
  */
-function utf8_from_unicode($arr)
+function fromUnicode($arr)
 {
 	ob_start();
 

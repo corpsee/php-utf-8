@@ -9,20 +9,20 @@ class Utf8TrimTest extends PHPUnit_Framework_TestCase
 	{
 		$str = 'ñtërnâtiônàlizætiø';
 		$trimmed = 'tërnâtiônàlizæti';
-		$this->assertEquals($trimmed, utf8_trim($str, 'ñø'));
+		$this->assertEquals($trimmed, utf8\trim($str, 'ñø'));
 	}
 
 	public function test_no_trim()
 	{
 		$str = ' Iñtërnâtiônàlizætiøn ';
 		$trimmed = ' Iñtërnâtiônàlizætiøn ';
-		$this->assertEquals($trimmed, utf8_trim($str, 'ñø'));
+		$this->assertEquals($trimmed, utf8\trim($str, 'ñø'));
 	}
 
 	public function test_empty_string()
 	{
 		$str = '';
 		$trimmed = '';
-		$this->assertEquals($trimmed, utf8_trim($str));
+		$this->assertEquals($trimmed, utf8\trim($str));
 	}
 }

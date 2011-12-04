@@ -51,7 +51,7 @@ function len($str)
  */
 function pos($str, $search, $offset = false)
 {
-	$str = utf8_bad_clean($str);
+	$str = badClean($str);
 
 	if ($offset === false)
 		return mb_strpos($str, $search);
@@ -71,7 +71,7 @@ function pos($str, $search, $offset = false)
  */
 function rpos($str, $search, $offset = false)
 {
-	$str = utf8_bad_clean($str);
+	$str = badClean($str);
 
 	if (!$offset)
 	{

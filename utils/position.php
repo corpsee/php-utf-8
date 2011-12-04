@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * Locate a byte index given a UTF-8 character index.
  *
@@ -23,7 +26,7 @@
  * @param int (n times)
  * @return mixed - int if only one input int, array if more, boolean TRUE if it's all ASCII
  */
-function utf8_byte_position()
+function bytePosition()
 {
 	$args = func_get_args();
 	$str = & array_shift($args);
@@ -33,7 +36,7 @@ function utf8_byte_position()
 
 	$result = array();
 	$prev = array(0, 0); // Trivial byte index, character offset pair
-	$i = utf8_locate_next_chr($str, 300); // Use a short piece of str to estimate bytes per character. $i (& $j) -> byte indexes into $str
+	$i = locateNextChr($str, 300); // Use a short piece of str to estimate bytes per character. $i (& $j) -> byte indexes into $str
 	$c = strlen(utf8_decode(substr($str, 0, $i))); // $c -> character offset into $str
 
 	// Deal with arguments from lowest to highest
@@ -63,7 +66,7 @@ function utf8_byte_position()
 			}
 
 			$j = $i + (int) (($offset - $c) * ($i - $prev[0]) / ($c - $prev[1]));
-			$j = utf8_locate_next_chr($str, $j); // Correct to utf8 character boundary
+			$j = locateNextChr($str, $j); // Correct to utf8 character boundary
 			$prev = array($i, $c); // Save the index, offset for use next iteration
 
 			if ($j > $i)
@@ -82,13 +85,13 @@ function utf8_byte_position()
 			{
 				// Move up
 				while ($error--)
-					$i = utf8_locate_next_chr($str, ++$i);
+					$i = locateNextChr($str, ++$i);
 			}
 			else
 			{
 				// Move down
 				while($error--)
-					$i = utf8_locate_current_chr($str, --$i);
+					$i = locateCurrentChr($str, --$i);
 			}
 
 			// Ready for next arg
@@ -117,7 +120,7 @@ function utf8_byte_position()
  * @param int $idx byte index in the string
  * @return int byte index of start of next UTF-8 character
  */
-function utf8_locate_current_chr(&$str, $idx)
+function locateCurrentChr(&$str, $idx)
 {
 	if ($idx <= 0)
 		return 0;
@@ -129,7 +132,7 @@ function utf8_locate_current_chr(&$str, $idx)
 	// Binary value for any byte after the first in a multi-byte UTF-8 character
 	// will be like 10xxxxxx so & 0xC0 can be used to detect this kind
 	// of byte - assuming well formed UTF-8
-	while($idx && ((ord($str[$idx]) & 0xC0) == 0x80))
+	while($idx && ((\ord($str[$idx]) & 0xC0) == 0x80))
 		$idx--;
 
 	return $idx;
@@ -147,7 +150,7 @@ function utf8_locate_current_chr(&$str, $idx)
  * @param int $idx byte index in the string
  * @return int byte index of start of next UTF-8 character
  */
-function utf8_locate_next_chr(&$str, $idx)
+function locateNextChr(&$str, $idx)
 {
 	if ($idx <= 0)
 		return 0;
@@ -159,7 +162,7 @@ function utf8_locate_next_chr(&$str, $idx)
 	// Binary value for any byte after the first in a multi-byte UTF-8 character
 	// will be like 10xxxxxx so & 0xC0 can be used to detect this kind
 	// of byte - assuming well formed UTF-8
-	while (($idx < $limit) && ((ord($str[$idx]) & 0xC0) == 0x80))
+	while (($idx < $limit) && ((\ord($str[$idx]) & 0xC0) == 0x80))
 		$idx++;
 
 	return $idx;

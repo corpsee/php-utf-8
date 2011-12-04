@@ -7,7 +7,7 @@ class Utf8ToUnicodeTest extends PHPUnit_Framework_TestCase
 {
 	public function test_empty_string()
 	{
-		$this->assertEquals(array(), utf8_to_unicode(''));
+		$this->assertEquals(array(), utf8\toUnicode(''));
 	}
 
 	public function test_string()
@@ -34,6 +34,6 @@ class Utf8ToUnicodeTest extends PHPUnit_Framework_TestCase
 		$unicode[18] = 248;
 		$unicode[19] = 110;
 
-		$this->assertEquals($unicode, utf8_to_unicode('Iñtërnâtiônàlizætiøn'));
+		$this->assertEquals($unicode, utf8\toUnicode('Iñtërnâtiônàlizætiøn'));
 	}
 }

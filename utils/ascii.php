@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * Tools to help with ASCII in UTF-8.
  *
@@ -29,7 +32,7 @@
  * @return boolean TRUE if it's all ASCII
  * @see utf8_is_ascii_ctrl
  */
-function utf8_is_ascii($str, $check_ctrl_chars_too = false)
+function isAscii($str, $check_ctrl_chars_too = false)
 {
 	if (empty($str))
 		return true;
@@ -56,7 +59,7 @@ function utf8_is_ascii($str, $check_ctrl_chars_too = false)
  * @param string $mode
  * @return string control codes removed
  */
-function utf8_to_ascii($str, $mode = 'non_ascii')
+function toAscii($str, $mode = 'non_ascii')
 {
 	static $modes;
 
@@ -104,7 +107,7 @@ function utf8_to_ascii($str, $mode = 'non_ascii')
  * @return string accented chars replaced with ascii equivalents
  * @author Andreas Gohr <andi@splitbrain.org>
  */
-function utf8_accents_to_ascii($str, $mode = 'both')
+function accentsToAscii($str, $mode = 'both')
 {
 	static $accents;
 

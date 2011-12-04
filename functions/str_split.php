@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * UTF-8 aware alternative to str_split.
  *
@@ -13,12 +16,12 @@
  * @param int $split_len A number of characters to split string by
  * @return string characters in string reverses
  */
-function utf8_str_split($str, $split_len=1)
+function split($str, $split_len=1)
 {
 	if (!preg_match('/^[0-9]+$/', $split_len) || $split_len < 1)
 		return false;
 
-	$len = utf8\len($str);
+	$len = len($str);
 	if($len <= $split_len)
 		return array($str);
 

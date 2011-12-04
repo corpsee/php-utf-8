@@ -8,7 +8,7 @@ class Utf8StripSpecialsTest extends PHPUnit_Framework_TestCase
 {
 	public function test_empty_string()
 	{
-		$this->assertEquals('', utf8_strip_specials(''));
+		$this->assertEquals('', utf8\stripSpecials(''));
 	}
 
 	public function test_strip()
@@ -19,6 +19,6 @@ class Utf8StripSpecialsTest extends PHPUnit_Framework_TestCase
 			chr(0x80 | (0x2234 & 0x003f)).
 			' World';
 
-		$this->assertEquals('HelloWorld', utf8_strip_specials($str));
+		$this->assertEquals('HelloWorld', utf8\stripSpecials($str));
 	}
 }

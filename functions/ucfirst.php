@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * UTF-8 aware alternative to ucfirst.
  *
@@ -12,19 +15,19 @@
  * @param string $str
  * @return string A string with the first character in Uppercase (if applicable).
  */
-function utf8_ucfirst($str)
+function ucfirst($str)
 {
-	switch (utf8\len($str))
+	switch (len($str))
 	{
 		case 0:
 			return '';
 			break;
 		case 1:
-			return utf8\toupper($str);
+			return toupper($str);
 			break;
 		default:
 			preg_match('/^(.{1})(.*)$/us', $str, $matches);
-			return utf8\toupper($matches[1]).$matches[2];
+			return toupper($matches[1]).$matches[2];
 			break;
 	}
 }

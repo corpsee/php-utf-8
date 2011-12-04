@@ -9,20 +9,20 @@ class Utf8StrrevTest extends PHPUnit_Framework_TestCase
 	{
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$rev = 'nøitæzilànôitânrëtñI';
-		$this->assertEquals($rev, utf8_strrev($str));
+		$this->assertEquals($rev, utf8\reverse($str));
 	}
 
 	public function test_empty_str()
 	{
 		$str = '';
 		$rev = '';
-		$this->assertEquals($rev, utf8_strrev($str));
+		$this->assertEquals($rev, utf8\reverse($str));
 	}
 
 	public function test_linefeed()
 	{
 		$str = "Iñtërnâtiôn\nàlizætiøn";
 		$rev = "nøitæzilà\nnôitânrëtñI";
-		$this->assertEquals($rev, utf8_strrev($str));
+		$this->assertEquals($rev, utf8\reverse($str));
 	}
 }

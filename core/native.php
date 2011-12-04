@@ -27,7 +27,7 @@ namespace utf8;
 */
 function len($str)
 {
-	return strlen(utf8_decode(utf8_bad_clean($str)));
+	return strlen(utf8_decode(badClean($str)));
 }
 
 /**
@@ -263,7 +263,7 @@ function tolower($string)
 {
 	static $UTF8_UPPER_TO_LOWER;
 
-	$uni = utf8_to_unicode($string);
+	$uni = toUnicode($string);
 	if (!$uni)
 		return false;
 
@@ -323,7 +323,7 @@ function tolower($string)
 			$uni[$i] = $UTF8_UPPER_TO_LOWER[$uni[$i]];
 	}
 
-	return utf8_from_unicode($uni);
+	return fromUnicode($uni);
 }
 
 /**
@@ -348,7 +348,7 @@ function toupper($string)
 {
 	static $UTF8_LOWER_TO_UPPER;
 
-	$uni = utf8_to_unicode($string);
+	$uni = toUnicode($string);
 	if (!$uni)
 		return false;
 
@@ -408,7 +408,7 @@ function toupper($string)
 			$uni[$i] = $UTF8_LOWER_TO_UPPER[$uni[$i]];
 	}
 
-	return utf8_from_unicode($uni);
+	return fromUnicode($uni);
 }
 
 // Is needed by utf8_ucwords_callback()
@@ -435,7 +435,7 @@ function ucwords($str)
 	return preg_replace_callback($pattern, function ($match) {
 		$leadingws = $match[2];
 		$ucfirst = toupper($match[3]);
-		$ucword = utf8_substr_replace(ltrim($match[0]), $ucfirst, 0, 1);
+		$ucword = subReplace(ltrim($match[0]), $ucfirst, 0, 1);
 
 		return $leadingws.$ucword;
 	}, $str);

@@ -1,4 +1,8 @@
 <?php
+
+namespace utf8;
+
+
 /**
  * UTF-8 aware replacements for the trim functions.
  *
@@ -19,10 +23,10 @@
  * @param string $charlist
  * @return string
  */
-function utf8_ltrim($str, $charlist = '')
+function ltrim($str, $charlist = '')
 {
 	if(empty($charlist))
-		return ltrim($str);
+		return \ltrim($str);
 
 	// Quote charlist for use in a characterclass
 	$charlist = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $charlist);
@@ -40,10 +44,10 @@ function utf8_ltrim($str, $charlist = '')
  * @param string $charlist
  * @return string
  */
-function utf8_rtrim($str, $charlist= '')
+function rtrim($str, $charlist= '')
 {
 	if(empty($charlist))
-		return rtrim($str);
+		return \rtrim($str);
 
 	// Quote charlist for use in a characterclass
 	$charlist = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $charlist);
@@ -61,10 +65,10 @@ function utf8_rtrim($str, $charlist= '')
  * @param boolean $charlist
  * @return string
  */
-function utf8_trim($str, $charlist= '')
+function trim($str, $charlist= '')
 {
 	if(empty($charlist))
-		return trim($str);
+		return \trim($str);
 
-	return utf8_ltrim(utf8_rtrim($str, $charlist), $charlist);
+	return ltrim(rtrim($str, $charlist), $charlist);
 }

@@ -1,5 +1,8 @@
 <?php
 
+namespace utf8;
+
+
 /**
  * UTF-8 aware alternative to str_ireplace.
  *
@@ -19,7 +22,7 @@
  * @param int $count
  * @return string
  */
-function utf8_ireplace($search, $replace, $str, $count = null)
+function ireplace($search, $replace, $str, $count = null)
 {
 	if (!is_array($search))
 	{
@@ -29,10 +32,10 @@ function utf8_ireplace($search, $replace, $str, $count = null)
 			return $str;
 
 		$lendif = strlen($replace) - strlen($search);
-		$search = utf8\tolower($search);
+		$search = tolower($search);
 
 		$search = preg_quote($search);
-		$lstr = utf8\tolower($str);
+		$lstr = tolower($str);
 		$i = 0;
 		$matched = 0;
 
@@ -57,12 +60,12 @@ function utf8_ireplace($search, $replace, $str, $count = null)
 			if (is_array($replace))
 			{
 				if(array_key_exists($k, $replace))
-					$str = utf8_ireplace($search[$k], $replace[$k], $str, $count);
+					$str = ireplace($search[$k], $replace[$k], $str, $count);
 				else
-					$str = utf8_ireplace($search[$k], '', $str, $count);
+					$str = ireplace($search[$k], '', $str, $count);
 			}
 			else
-				$str = utf8_ireplace($search[$k], $replace, $str, $count);
+				$str = ireplace($search[$k], $replace, $str, $count);
 		}
 
 		return $str;

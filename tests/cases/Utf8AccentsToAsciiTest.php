@@ -7,24 +7,24 @@ class Utf8AccentsToAsciiTest extends PHPUnit_Framework_TestCase
 {
 	public function test_empty_str()
 	{
-		$this->assertEquals('', utf8_accents_to_ascii(''));
+		$this->assertEquals('', utf8\accentsToAscii(''));
 	}
 
 	public function test_lowercase()
 	{
 		$str = 'ô';
-		$this->assertEquals('o', utf8_accents_to_ascii($str, 'lower'));
+		$this->assertEquals('o', utf8\accentsToAscii($str, 'lower'));
 	}
 
 	public function test_uppercase()
 	{
 		$str = 'Ô';
-		$this->assertEquals('O', utf8_accents_to_ascii($str, 'upper'));
+		$this->assertEquals('O', utf8\accentsToAscii($str, 'upper'));
 	}
 
 	public function test_both()
 	{
 		$str = 'ôÔ';
-		$this->assertEquals('oO', utf8_accents_to_ascii($str, 'both'));
+		$this->assertEquals('oO', utf8\accentsToAscii($str, 'both'));
 	}
 }
