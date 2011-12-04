@@ -6,13 +6,13 @@ class Utf8StrtoupperTest extends PHPUnit_Framework_TestCase
 	{
 		$str = 'iñtërnâtiônàlizætiøn';
 		$upper = 'IÑTËRNÂTIÔNÀLIZÆTIØN';
-		$this->assertEquals($upper, utf8\toupper($str));
+		$this->assertEquals($upper, utf8\toUpper($str));
 	}
 
 	public function test_empty_string()
 	{
 		$str = '';
 		$upper = '';
-		$this->assertEquals($upper, utf8\toupper($str));
+		$this->assertEquals($upper, utf8\toUpper($str));
 	}
 }

@@ -21,8 +21,8 @@ function ifind($str, $search)
 	if (strlen($search) == 0)
 		return $str;
 
-	$lstr = tolower($str);
-	$lsearch = tolower($search);
+	$lstr = tolLwer($str);
+	$lsearch = toLower($search);
 	preg_match('/^(.*)'.preg_quote($lsearch).'/Us', $lstr, $matches);
 
 	if (count($matches) == 2)

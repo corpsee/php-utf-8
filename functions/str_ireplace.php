@@ -10,11 +10,11 @@ namespace utf8;
  * This function is not fast and gets slower if $search/$replace is array.
  * It assumes that the lower and uppercase versions of a UTF-8 character will
  * have the same length in bytes which is currently true given the hash table
- * to strtolower.
+ * to strtoLower.
  *
  * @package php-utf8
  * @subpackage functions
- * @uses utf8_strtolower
+ * @uses utf8_strtoLower
  * @see http://www.php.net/str_ireplace
  * @param string $search
  * @param string $replace
@@ -32,10 +32,10 @@ function ireplace($search, $replace, $str, $count = null)
 			return $str;
 
 		$lendif = strlen($replace) - strlen($search);
-		$search = tolower($search);
+		$search = toLower($search);
 
 		$search = preg_quote($search);
-		$lstr = tolower($str);
+		$lstr = toLower($str);
 		$i = 0;
 		$matched = 0;
 

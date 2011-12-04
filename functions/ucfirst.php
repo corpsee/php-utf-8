@@ -23,11 +23,11 @@ function ucfirst($str)
 			return '';
 			break;
 		case 1:
-			return toupper($str);
+			return toUpper($str);
 			break;
 		default:
 			preg_match('/^(.{1})(.*)$/us', $str, $matches);
-			return toupper($matches[1]).$matches[2];
+			return toUpper($matches[1]).$matches[2];
 			break;
 	}
 }

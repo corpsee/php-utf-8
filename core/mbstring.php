@@ -126,7 +126,7 @@ function sub($str, $offset, $length = false)
  * @param string $str
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function tolower($str)
+function toLower($str)
 {
 	return mb_strtolower($str);
 }
@@ -143,7 +143,7 @@ function tolower($str)
  * @param string
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function toupper($str)
+function toUpper($str)
 {
 	return mb_strtoupper($str);
 }

@@ -259,7 +259,7 @@ function sub($str, $offset, $length = false)
  * @param string $string
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function tolower($string)
+function toLower($string)
 {
 	static $UTF8_UPPER_TO_LOWER;
 
@@ -344,7 +344,7 @@ function tolower($string)
  * @param string $string
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function toupper($string)
+function toUpper($string)
 {
 	static $UTF8_LOWER_TO_UPPER;
 
@@ -434,7 +434,7 @@ function ucwords($str)
 
 	return preg_replace_callback($pattern, function ($match) {
 		$leadingws = $match[2];
-		$ucfirst = toupper($match[3]);
+		$ucfirst = toUpper($match[3]);
 		$ucword = subReplace(ltrim($match[0]), $ucfirst, 0, 1);
 
 		return $leadingws.$ucword;

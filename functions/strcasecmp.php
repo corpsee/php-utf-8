@@ -18,8 +18,8 @@ namespace utf8;
  */
 function casecmp($str_x, $str_y)
 {
-	$str_x = tolower($str_x);
-	$str_y = tolower($str_y);
+	$str_x = toLower($str_x);
+	$str_y = toLower($str_y);
 
 	return strcmp($str_x, $str_y);
 }
