@@ -1,7 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/functions/strrev.php';
+require_once PHP_UTF8_DIR.'/functions/strrev.php';
 
 
 class Utf8StrrevTest extends PHPUnit_Framework_TestCase

@@ -1,4 +1,5 @@
-<phpunit>
+<phpunit
+    bootstrap="./bootstrap.php">
 	<php>
 		<const name="PHP_UTF8_MODE" value="mbstring" />
 	</php>

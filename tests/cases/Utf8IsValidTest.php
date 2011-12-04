@@ -1,7 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/utils/validation.php';
+require_once PHP_UTF8_DIR.'/utils/validation.php';
 
 
 class Utf8IsValidTest extends PHPUnit_Framework_TestCase

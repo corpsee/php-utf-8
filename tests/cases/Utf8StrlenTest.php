@@ -1,7 +1,5 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-
 class Utf8StrlenTest extends PHPUnit_Framework_TestCase
 {
 	public function test_utf8()

@@ -1,7 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/functions/strcspn.php';
+require_once PHP_UTF8_DIR.'/functions/strcspn.php';
 
 
 class Utf8StrcspnTest extends PHPUnit_Framework_TestCase

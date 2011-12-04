@@ -1,7 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/functions/stristr.php';
+require_once PHP_UTF8_DIR.'/functions/stristr.php';
 
 
 class Utf8StristrTest extends PHPUnit_Framework_TestCase

@@ -1,8 +1,7 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/utils/patterns.php'; // Is needed in native mode
-require_once UTF8.'/utils/bad.php';
+require_once PHP_UTF8_DIR.'/utils/patterns.php'; // Is needed in native mode
+require_once PHP_UTF8_DIR.'/utils/bad.php';
 
 
 class Utf8BadFindTest extends PHPUnit_Framework_TestCase

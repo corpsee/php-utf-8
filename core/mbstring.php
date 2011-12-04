@@ -16,8 +16,8 @@ if (!defined('UTF8_CORE'))
  * utf8_strpos() and utf8_strrpos() need utf8_bad_strip() to strip invalid
  * characters. Mbstring doesn't do this while the Native implementation does.
  */
-require_once UTF8.'/utils/patterns.php';
-require_once UTF8.'/utils/bad.php';
+require_once PHP_UTF8_DIR.'/utils/patterns.php';
+require_once PHP_UTF8_DIR.'/utils/bad.php';
 
 /**
  * Wrapper round mb_strlen.

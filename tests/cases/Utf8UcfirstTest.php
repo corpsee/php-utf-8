@@ -1,7 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/functions/ucfirst.php';
+require_once PHP_UTF8_DIR.'/functions/ucfirst.php';
 
 
 class Utf8UcfirstTest extends PHPUnit_Framework_TestCase

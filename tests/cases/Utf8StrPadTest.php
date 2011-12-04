@@ -1,7 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/functions/str_pad.php';
+require_once PHP_UTF8_DIR.'/functions/str_pad.php';
 
 
 class Utf8StrPadTest extends PHPUnit_Framework_TestCase

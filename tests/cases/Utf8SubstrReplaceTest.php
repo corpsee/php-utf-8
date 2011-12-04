@@ -1,7 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/functions/substr_replace.php';
+require_once PHP_UTF8_DIR.'/functions/substr_replace.php';
 
 
 class Utf8SubstrReplaceTest extends PHPUnit_Framework_TestCase

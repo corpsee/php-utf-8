@@ -1,7 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../bootstrap.php';
-require_once UTF8.'/functions/ord.php';
+require_once PHP_UTF8_DIR.'/functions/ord.php';
 
 
 class Utf8OrdTest extends PHPUnit_Framework_TestCase
