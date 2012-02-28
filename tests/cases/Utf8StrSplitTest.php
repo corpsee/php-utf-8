@@ -56,5 +56,4 @@ class Utf8StrSplitTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals($array, utf8\split($str));
 	}
-
 }
