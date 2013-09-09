@@ -1,7 +1,7 @@
 php-utf-8
 =========
 
-This is fork of the FSX/php-utf8 library. It was created because the author of origin library doesn`t support it.
+This is fork of the [FSX/php-utf8][8] library. It was created because the author of origin library doesn`t support it.
 
 php-utf8
 --------
@@ -76,10 +76,11 @@ Attribution for which code came from elsewhere can be found in the source code i
    Mozilla codebase to PHP, which is re-used in php-utf8.*
 
 
-  [1]: http://github.com/FSX/php-utf8/issues
+  [1]: https://github.com/FSX/php-utf8/issues
   [2]: http://www.phpwact.org/php/i18n/charsets
   [3]: http://www.phpwact.org/php/i18n/utf-8
   [4]: http://www.phpwact.org/php/i18n/utf-8
   [5]: http://hsivonen.iki.fi/producing-xml/#controlchar
   [6]: http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
   [7]: http://hsivonen.iki.fi/php-utf8/
+  [8]: https://github.com/FSX/php-utf8
