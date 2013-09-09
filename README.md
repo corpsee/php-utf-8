@@ -1,5 +1,10 @@
+php-utf-8
+=========
+
+This is fork of the FSX/php-utf8 library. It was created because the author of origin library doesn`t support it.
+
 php-utf8
-========
+--------
 
 php-utf8 is a UTF-8 aware library of functions mirroring PHP's own string
 functions. Does not require PHP mbstring extension though will use it, if
