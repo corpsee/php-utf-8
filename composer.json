@@ -1,5 +1,5 @@
 {
-	"name":        "php-utf-8",
+	"name":        "corpsee/php-utf-8",
 	"type":        "library",
 	"description": "A library for UTF-8 in PHP providing UTF-8 aware functions to mirror PHP's own string functions. The library doesn't require PHP mbstring extension although, if found, it will use it to gain performance.",
 	"keywords":    ["utf8", "utf-8", "unicode", "i18n"],
