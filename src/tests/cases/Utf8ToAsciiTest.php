@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF8_DIR.'/utils/ascii.php';
+require_once PHP_UTF8_DIR . '/utils/ascii.php';
 
 
 class Utf8ToAsciiTest extends PHPUnit_Framework_TestCase

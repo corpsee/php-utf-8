@@ -1,7 +1,7 @@
 <?php
 
-require_once PHP_UTF8_DIR.'/utils/unicode.php';
-require_once PHP_UTF8_DIR.'/utils/specials.php';
+require_once PHP_UTF8_DIR . '/utils/unicode.php';
+require_once PHP_UTF8_DIR . '/utils/specials.php';
 
 
 class Utf8IsWordCharsTest extends PHPUnit_Framework_TestCase

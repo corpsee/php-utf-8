@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF8_DIR.'/utils/position.php';
+require_once PHP_UTF8_DIR . '/utils/position.php';
 
 
 class Utf8PositionTest extends PHPUnit_Framework_TestCase
