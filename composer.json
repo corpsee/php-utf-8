@@ -27,6 +27,6 @@
 		"ext-mbstring": "Use Mbstring for best performance"
 	},
 	"autoload":    {
-		"files": ["src/php-utf-8.php"]
+		"files": ["src/php-utf-8/init.php"]
 	}
 }
