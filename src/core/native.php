@@ -412,7 +412,7 @@ function toUpper($string)
 }
 
 // Is needed by utf8_ucwords_callback()
-require_once PHP_UTF8_DIR.'/functions/substr_replace.php';
+require_once PHP_UTF8_DIR . '/functions/substr_replace.php';
 
 /**
  * UTF-8 aware alternative to ucwords.

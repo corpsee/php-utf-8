@@ -1,0 +1,32 @@
+{
+	"name":        "php-utf-8",
+	"type":        "library",
+	"description": "A library for UTF-8 in PHP providing UTF-8 aware functions to mirror PHP's own string functions. The library doesn't require PHP mbstring extension although, if found, it will use it to gain performance.",
+	"keywords":    ["utf8", "utf-8", "unicode", "i18n"],
+	"homepage":    "https://github.com/corpsee/php-utf-8",
+	"license":     "LGPL-2.1",
+	"authors":     [
+		{
+			"name":     "Frank Smit",
+			"email":    "frank@61924.nl",
+			"homepage": "http://61924.nl",
+			"role":     "Developer"
+		},
+	    {
+			"name":     "Corpsee",
+			"email":    "poisoncorpsee@gmail.com",
+			"homepage": "http://corpsee.com",
+			"role":     "Developer"
+		}
+	],
+	"require":     {
+		"php":      ">=5.3.0",
+		"lib-pcre": "*"
+	},
+	"suggest":     {
+		"ext-mbstring": "Use Mbstring for best performance"
+	},
+	"autoload":    {
+		"files": ["src/php-utf-8.php"]
+	}
+}
