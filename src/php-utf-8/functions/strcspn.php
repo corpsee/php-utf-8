@@ -2,34 +2,40 @@
 
 namespace utf8;
 
-
 /**
  * UTF-8 aware alternative to strcspn.
  *
  * Find length of initial segment not matching mask.
  *
- * @package php-utf8
+ * @package    php-utf8
  * @subpackage functions
- * @see http://www.php.net/strcspn
- * @uses utf8_strlen
- * @uses utf8_substr
+ * @see        http://www.php.net/strcspn
+ * @uses       utf8_strlen
+ * @uses       utf8_substr
+ *
  * @param string
+ *
  * @return int
  */
-function cspn($str, $mask, $start = null, $length = null)
+function cspn ($str, $mask, $start = NULL, $length = NULL)
 {
 	if (empty($mask) || strlen($mask) == 0)
-		return null;
+	{
+		return NULL;
+	}
 
 	$mask = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $mask);
 
-	if ($start !== null || $length !== null)
+	if ($start !== NULL || $length !== NULL)
+	{
 		$str = sub($str, $start, $length);
+	}
 
-	preg_match('/^[^'.$mask.']+/u', $str, $matches);
+	preg_match('/^[^' . $mask . ']+/u', $str, $matches);
 
 	if (isset($matches[0]))
+	{
 		return len($matches[0]);
-
+	}
 	return 0;
 }

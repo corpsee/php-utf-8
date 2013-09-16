@@ -2,22 +2,23 @@
 
 namespace utf8;
 
-
 /**
  * UTF-8 aware substr_replace.
  *
- * @package php-utf8
+ * @package    php-utf8
  * @subpackage functions
- * @see http://www.php.net/substr_replace
- * @uses utf8_strlen
- * @uses utf8_substr
+ * @see        http://www.php.net/substr_replace
+ * @uses       utf8_strlen
+ * @uses       utf8_substr
+ *
  * @param string $str
  * @param string $repl
- * @param int $start
- * @param int $length
+ * @param int    $start
+ * @param int    $length
+ *
  * @return string
  */
-function subReplace($str, $repl, $start, $length = null)
+function subReplace ($str, $repl, $start, $length = NULL)
 {
 	preg_match_all('/./us', $str, $ar);
 	preg_match_all('/./us', $repl, $rar);

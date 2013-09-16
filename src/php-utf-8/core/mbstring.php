@@ -2,12 +2,10 @@
 
 namespace utf8;
 
-
 // utf8_strpos() and utf8_strrpos() need utf8_bad_strip() to strip invalid
 // characters. Mbstring doesn't do this while the Native implementation does.
 require_once PHP_UTF8_DIR . '/utils/patterns.php';
 require_once PHP_UTF8_DIR . '/utils/bad.php';
-
 
 /**
  * Wrapper round mb_strlen.
@@ -15,25 +13,26 @@ require_once PHP_UTF8_DIR . '/utils/bad.php';
  * This function does not count bad bytes in the string - these are simply ignored.
  *
  * @param string $str UTF-8 string
+ *
  * @return int number of UTF-8 characters in string
  */
 
- /* Function: len
+/* Function: len
 
    Wrapper round mb_strlen.
 
    This function does not count bad bytes in the string - these are simply ignored.
 
    Parameters:
-      str - A UTF-8 string.
+	  str - A UTF-8 string.
 
    Returns:
-      The length (integer) of a string.
+	  The length (integer) of a string.
 
    See also:
-      <mb_strlen at http://nl.php.net/manual/en/function.mb-strlen.php>
+	  <mb_strlen at http://nl.php.net/manual/en/function.mb-strlen.php>
 */
-function len($str)
+function len ($str)
 {
 	return mb_strlen($str);
 }
@@ -44,18 +43,20 @@ function len($str)
  *
  * Find position of first occurrence of a string.
  *
- * @param string $str haystack
+ * @param string $str    haystack
  * @param string $search needle (you should validate this with utf8_is_valid)
- * @param integer offset in characters (from left)
+ * @param        integer offset in characters (from left)
+ *
  * @return mixed integer position or FALSE on failure
  */
-function pos($str, $search, $offset = false)
+function pos ($str, $search, $offset = FALSE)
 {
 	$str = badClean($str);
 
-	if ($offset === false)
+	if ($offset === FALSE)
+	{
 		return mb_strpos($str, $search);
-
+	}
 	return mb_strpos($str, $search, $offset);
 }
 
@@ -64,36 +65,39 @@ function pos($str, $search, $offset = false)
  *
  * Find position of last occurrence of a char in a string.
  *
- * @param string $str haystack
- * @param string $search needle (you should validate this with utf8_is_valid)
+ * @param string  $str    haystack
+ * @param string  $search needle (you should validate this with utf8_is_valid)
  * @param integer $offset (optional) offset (from left)
+ *
  * @return mixed integer position or FALSE on failure
  */
-function rpos($str, $search, $offset = false)
+function rpos ($str, $search, $offset = FALSE)
 {
 	$str = badClean($str);
 
 	if (!$offset)
 	{
 		// Emulate behaviour of strrpos rather than raising warning
-		if(empty($str))
-			return false;
-
+		if (empty($str))
+		{
+			return FALSE;
+		}
 		return mb_strrpos($str, $search);
 	}
 
 	if (!is_int($offset))
 	{
 		trigger_error('utf8_strrpos expects parameter 3 to be long', E_USER_WARNING);
-		return false;
+		return FALSE;
 	}
 
 	$str = mb_substr($str, $offset);
 
-	if (($pos = mb_strrpos($str, $search)) !== false)
+	if (($pos = mb_strrpos($str, $search)) !== FALSE)
+	{
 		return $pos + $offset;
-
-	return false;
+	}
+	return FALSE;
 }
 
 /**
@@ -101,16 +105,18 @@ function rpos($str, $search, $offset = false)
  *
  * Return part of a string given character offset (and optionally length).
  *
- * @param string $str
+ * @param string  $str
  * @param integer $offset number of UTF-8 characters offset (from left)
  * @param integer $length (optional) length in UTF-8 characters from offset
+ *
  * @return mixed string or FALSE if failure
  */
-function sub($str, $offset, $length = false)
+function sub ($str, $offset, $length = FALSE)
 {
-	if ($length === false)
+	if ($length === FALSE)
+	{
 		return mb_substr($str, $offset);
-
+	}
 	return mb_substr($str, $offset, $length);
 }
 
@@ -124,9 +130,10 @@ function sub($str, $offset, $length = false)
  * the Chinese alphabet, for example. See Unicode Standard Annex #21: Case Mappings.
  *
  * @param string $str
+ *
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function toLower($str)
+function toLower ($str)
 {
 	return mb_strtolower($str);
 }
@@ -141,9 +148,10 @@ function toLower($str)
  * the Chinese alphabet, for example. See Unicode Standard Annex #21: Case Mappings
  *
  * @param string
+ *
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function toUpper($str)
+function toUpper ($str)
 {
 	return mb_strtoupper($str);
 }
@@ -153,14 +161,16 @@ function toUpper($str)
  *
  * Uppercase the first character of each word in a string using mb_convert_case.
  *
- * @see http://php.net/manual/en/function.ucwords.php
- * @see http://php.net/manual/en/function.mb-convert-case.php
+ * @see  http://php.net/manual/en/function.ucwords.php
+ * @see  http://php.net/manual/en/function.mb-convert-case.php
  * @uses utf8_substr_replace
  * @uses utf8_strtoupper
+ *
  * @param string
+ *
  * @return string with first char of each word uppercase
  */
-function ucwords($str)
+function ucwords ($str)
 {
 	return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
 }

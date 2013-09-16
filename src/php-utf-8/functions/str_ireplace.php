@@ -2,7 +2,6 @@
 
 namespace utf8;
 
-
 /**
  * UTF-8 aware alternative to str_ireplace.
  *
@@ -12,45 +11,50 @@ namespace utf8;
  * have the same length in bytes which is currently true given the hash table
  * to strtoLower.
  *
- * @package php-utf8
+ * @package    php-utf8
  * @subpackage functions
- * @uses utf8_strtoLower
- * @see http://www.php.net/str_ireplace
+ * @uses       utf8_strtoLower
+ * @see        http://www.php.net/str_ireplace
+ *
  * @param string $search
  * @param string $replace
  * @param string $str
- * @param int $count
+ * @param int    $count
+ *
  * @return string
  */
-function ireplace($search, $replace, $str, $count = null)
+function ireplace ($search, $replace, $str, $count = NULL)
 {
 	if (!is_array($search))
 	{
 		$slen = strlen($search);
 
 		if ($slen == 0)
+		{
 			return $str;
+		}
 
 		$lendif = strlen($replace) - strlen($search);
 		$search = toLower($search);
 
-		$search = preg_quote($search);
-		$lstr = toLower($str);
-		$i = 0;
+		$search  = preg_quote($search);
+		$lstr    = toLower($str);
+		$i       = 0;
 		$matched = 0;
 
-		while (preg_match('/(.*)'.$search.'/Us', $lstr, $matches))
+		while (preg_match('/(.*)' . $search . '/Us', $lstr, $matches))
 		{
 			if ($i === $count)
+			{
 				break;
+			}
 
 			$mlen = strlen($matches[0]);
 			$lstr = substr($lstr, $mlen);
-			$str = substr_replace($str, $replace, $matched + strlen($matches[1]), $slen);
+			$str  = substr_replace($str, $replace, $matched + strlen($matches[1]), $slen);
 			$matched += $mlen + $lendif;
 			$i++;
 		}
-
 		return $str;
 	}
 	else
@@ -59,15 +63,20 @@ function ireplace($search, $replace, $str, $count = null)
 		{
 			if (is_array($replace))
 			{
-				if(array_key_exists($k, $replace))
+				if (array_key_exists($k, $replace))
+				{
 					$str = ireplace($search[$k], $replace[$k], $str, $count);
+				}
 				else
+				{
 					$str = ireplace($search[$k], '', $str, $count);
+				}
 			}
 			else
+			{
 				$str = ireplace($search[$k], $replace, $str, $count);
+			}
 		}
-
 		return $str;
 	}
 }
