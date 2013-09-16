@@ -2,7 +2,6 @@
 
 namespace utf8;
 
-
 /**
  * Tools for locating/replacing bad bytes in UTF-8 strings.
  * The Original Code is Mozilla Communicator client code.
@@ -13,11 +12,11 @@ namespace utf8;
  * Ported to PHP by Henri Sivonen (http://hsivonen.iki.fi)
  * Slight modifications to fit with phputf8 library by Harry Fuecks (hfuecks gmail com)
  *
- * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
- * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
- * @see http://hsivonen.iki.fi/php-utf8/
- * @see utf8_is_valid
- * @package php-utf8
+ * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
+ * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
+ * @see        http://hsivonen.iki.fi/php-utf8/
+ * @see        utf8_is_valid
+ * @package    php-utf8
  * @subpackage utils
  */
 
@@ -30,27 +29,29 @@ namespace utf8;
  * Note: modified to include full ASCII range including control chars
  *
  * @see http://www.w3.org/International/questions/qa-forms-utf-8
- * @param string $str
+ *
+ * @param string  $str
  * @param boolean $first_only
+ *
  * @return mixed integer byte index or FALSE if no bad found
  */
-function badFind($str, $first_only = true)
+function badFind ($str, $first_only = TRUE)
 {
-	$pos = 0;
-	$bad_list = array( );
+	$pos      = 0;
+	$bad_list = array();
 
-	while (preg_match('/'.BAD_UTF_PATTERN.'/S', $str, $matches))
+	while (preg_match('/' . BAD_UTF_PATTERN . '/S', $str, $matches))
 	{
 		$bytes = strlen($matches[0]);
 
 		if (isset($matches[2]))
 		{
 			if ($first_only)
+			{
 				return $pos;
-
+			}
 			$bad_list[] = $pos;
 		}
-
 		$pos += $bytes;
 		$str = substr($str, $bytes);
 	}
@@ -60,7 +61,7 @@ function badFind($str, $first_only = true)
 		return $bad_list;
 	}
 
-	return false;
+	return FALSE;
 }
 
 /**
@@ -71,23 +72,27 @@ function badFind($str, $first_only = true)
  * Note: modified to include full ASCII range including control chars
  *
  * @see http://www.w3.org/International/questions/qa-forms-utf-8
+ *
  * @param string $str
+ *
  * @return string
  */
-function badClean($str, $replace = false)
+function badClean ($str, $replace = FALSE)
 {
 	ob_start();
 
-	while (preg_match('/'.BAD_UTF_PATTERN.'/S', $str, $matches))
+	while (preg_match('/' . BAD_UTF_PATTERN . '/S', $str, $matches))
 	{
 		if (!isset($matches[2]))
+		{
 			echo $matches[0];
-		elseif ($replace !== false && is_string($replace))
+		}
+		elseif ($replace !== FALSE && is_string($replace))
+		{
 			echo $replace;
-
+		}
 		$str = substr($str, strlen($matches[0]));
 	}
-
 	return ob_get_clean();
 }
 
@@ -140,6 +145,7 @@ define('utf8\BAD_SURROGATE', 5);
 /**
  * Return code from utf8_bad_identify().
  * Codepoints outside the Unicode range are illegal.
+ *
  * @see utf8_bad_identify
  */
 define('utf8\BAD_UNIOUTRANGE', 6);
@@ -160,16 +166,18 @@ define('utf8\BAD_SEQINCOMPLETE', 7);
  * Returns a status code on the first bad byte found
  *
  * @author <hsivonen@iki.fi>
+ *
  * @param string $str UTF-8 encoded string
+ *
  * @return mixed $i integer constant describing problem or FALSE if valid UTF-8
- * @see utf8_bad_explain
- * @see http://hsivonen.iki.fi/php-utf8/
+ * @see    utf8_bad_explain
+ * @see    http://hsivonen.iki.fi/php-utf8/
  */
-function badIdentify($str, &$i)
+function badIdentify ($str, &$i)
 {
 	$mState = 0; // Cached expected number of octets after the current octet
-	             // until the beginning of the next UTF8 character sequence
-	$mUcs4 = 0; // Cached Unicode character
+	// until the beginning of the next UTF8 character sequence
+	$mUcs4  = 0; // Cached Unicode character
 	$mBytes = 1; // Cached expected number of octets in the current sequence
 
 	$len = strlen($str);
@@ -186,31 +194,31 @@ function badIdentify($str, &$i)
 				// US-ASCII, pass straight through.
 				$mBytes = 1;
 			}
-			else if (0xC0 == (0xE0 & ($in)))
+			elseif (0xC0 == (0xE0 & ($in)))
 			{
 				// First octet of 2 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x1F) << 6;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x1F) << 6;
 				$mState = 1;
 				$mBytes = 2;
 			}
-			else if (0xE0 == (0xF0 & ($in)))
+			elseif (0xE0 == (0xF0 & ($in)))
 			{
 				// First octet of 3 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x0F) << 12;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x0F) << 12;
 				$mState = 2;
 				$mBytes = 3;
 			}
-			else if (0xF0 == (0xF8 & ($in)))
+			elseif (0xF0 == (0xF8 & ($in)))
 			{
 				// First octet of 4 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x07) << 18;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x07) << 18;
 				$mState = 3;
 				$mBytes = 4;
 			}
-			else if (0xF8 == (0xFC & ($in)))
+			elseif (0xF8 == (0xFC & ($in)))
 			{
 				/* First octet of 5 octet sequence.
 				 *
@@ -220,7 +228,7 @@ function badIdentify($str, &$i)
 				 */
 				return BAD_5OCTET;
 			}
-			else if (0xFC == (0xFE & ($in)))
+			elseif (0xFC == (0xFE & ($in)))
 			{
 				// First octet of 6 octet sequence, see comments for 5 octet sequence.
 				return BAD_6OCTET;
@@ -239,8 +247,8 @@ function badIdentify($str, &$i)
 			{
 				// Legal continuation.
 				$shift = ($mState - 1) * 6;
-				$tmp = $in;
-				$tmp = ($tmp & 0x0000003F) << $shift;
+				$tmp   = $in;
+				$tmp   = ($tmp & 0x0000003F) << $shift;
 				$mUcs4 |= $tmp;
 
 				/**
@@ -250,16 +258,22 @@ function badIdentify($str, &$i)
 				if (0 == --$mState)
 				{
 					// From Unicode 3.1, non-shortest form is illegal
-					if (((2 == $mBytes) && ($mUcs4 < 0x0080)) || ((3 == $mBytes) && ($mUcs4 < 0x0800)) || ((4 == $mBytes) && ($mUcs4 < 0x10000)) )
+					if (((2 == $mBytes) && ($mUcs4 < 0x0080)) || ((3 == $mBytes) && ($mUcs4 < 0x0800)) || ((4 == $mBytes) && ($mUcs4 < 0x10000)))
+					{
 						return BAD_NONSHORT;
-					elseif (($mUcs4 & 0xFFFFF800) == 0xD800 ) // From Unicode 3.2, surrogate characters are illegal
+					}
+					elseif (($mUcs4 & 0xFFFFF800) == 0xD800) // From Unicode 3.2, surrogate characters are illegal
+					{
 						return BAD_SURROGATE;
-					elseif ($mUcs4 > 0x10FFFF ) // Codepoints outside the Unicode range are illegal
+					}
+					elseif ($mUcs4 > 0x10FFFF) // Codepoints outside the Unicode range are illegal
+					{
 						return BAD_UNIOUTRANGE;
+					}
 
 					// Initialize UTF8 cache
 					$mState = 0;
-					$mUcs4 = 0;
+					$mUcs4  = 0;
 					$mBytes = 1;
 				}
 			}
@@ -279,10 +293,9 @@ function badIdentify($str, &$i)
 		$i--;
 		return BAD_SEQINCOMPLETE;
 	}
-
 	// No bad octets found
-	$i = null;
-	return false;
+	$i = NULL;
+	return FALSE;
 }
 
 /**
@@ -290,28 +303,22 @@ function badIdentify($str, &$i)
  * explaining what the problem is.
  *
  * @param int $code return code from utf8_bad_identify
+ *
  * @return mixed string message or FALSE if return code unknown
  * @see utf8_bad_identify
  */
-function badExplain($code)
+function badExplain ($code)
 {
 	static $errors;
 
 	if (!$errors)
 	{
-		$errors = array(
-			BAD_5OCTET => 'Five octet sequences are valid UTF-8 but are not supported by Unicode',
-			BAD_6OCTET => 'Six octet sequences are valid UTF-8 but are not supported by Unicode',
-			BAD_SEQID => 'Invalid octet for use as start of multi-byte UTF-8 sequence',
-			BAD_NONSHORT => 'From Unicode 3.1, non-shortest form is illegal',
-			BAD_SURROGATE => 'From Unicode 3.2, surrogate characters are illegal',
-			BAD_UNIOUTRANGE => 'Codepoints outside the Unicode range are illegal',
-			BAD_SEQINCOMPLETE => 'Incomplete multi-octet sequence'
-		);
+		$errors = array(BAD_5OCTET => 'Five octet sequences are valid UTF-8 but are not supported by Unicode', BAD_6OCTET => 'Six octet sequences are valid UTF-8 but are not supported by Unicode', BAD_SEQID => 'Invalid octet for use as start of multi-byte UTF-8 sequence', BAD_NONSHORT => 'From Unicode 3.1, non-shortest form is illegal', BAD_SURROGATE => 'From Unicode 3.2, surrogate characters are illegal', BAD_UNIOUTRANGE => 'Codepoints outside the Unicode range are illegal', BAD_SEQINCOMPLETE => 'Incomplete multi-octet sequence');
 	}
 
 	if (isset($errors[$code]))
-		trigger_error('Unknown error code: '.$errors[$code], E_USER_WARNING);
-
-	return false;
+	{
+		trigger_error('Unknown error code: ' . $errors[$code], E_USER_WARNING);
+	}
+	return FALSE;
 }

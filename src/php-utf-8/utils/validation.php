@@ -2,7 +2,6 @@
 
 namespace utf8;
 
-
 /**
  * Tools for validing a UTF-8 string is well formed.
  * The Original Code is Mozilla Communicator client code.
@@ -11,10 +10,10 @@ namespace utf8;
  * Ported to PHP by Henri Sivonen (http://hsivonen.iki.fi)
  * Slight modifications to fit with phputf8 library by Harry Fuecks (hfuecks gmail com)
  *
- * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
- * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
- * @see http://hsivonen.iki.fi/php-utf8/
- * @package php-utf8
+ * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
+ * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
+ * @see        http://hsivonen.iki.fi/php-utf8/
+ * @package    php-utf8
  * @subpackage utils
  */
 
@@ -22,17 +21,19 @@ namespace utf8;
  * Tests a string as to whether it's valid UTF-8 and supported by the Unicode standard
  *
  * @author <hsivonen@iki.fi>
- * @see http://hsivonen.iki.fi/php-utf8/
- * @see utf8_compliant
+ * @see    http://hsivonen.iki.fi/php-utf8/
+ * @see    utf8_compliant
+ *
  * @param string $str UTF-8 encoded string
+ *
  * @return boolean TRUE if valid
  */
-function isValid($str)
+function isValid ($str)
 {
-	$mState = 0;  // Cached expected number of octets after the current octet
-	              // until the beginning of the next UTF8 character sequence
-	$mUcs4 = 0;  // Cached Unicode character
-	$mBytes = 1;  // Cached expected number of octets in the current sequence
+	$mState = 0; // Cached expected number of octets after the current octet
+	// until the beginning of the next UTF8 character sequence
+	$mUcs4  = 0; // Cached Unicode character
+	$mBytes = 1; // Cached expected number of octets in the current sequence
 
 	$len = strlen($str);
 
@@ -44,28 +45,30 @@ function isValid($str)
 		{
 			// When mState is zero we expect either a US-ASCII character or a multi-octet sequence.
 			if (0 == (0x80 & ($in)))
+			{
 				$mBytes = 1; // US-ASCII, pass straight through
+			}
 			elseif (0xC0 == (0xE0 & ($in)))
 			{
 				// First octet of 2 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x1F) << 6;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x1F) << 6;
 				$mState = 1;
 				$mBytes = 2;
 			}
 			elseif (0xE0 == (0xF0 & ($in)))
 			{
 				// First octet of 3 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x0F) << 12;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x0F) << 12;
 				$mState = 2;
 				$mBytes = 3;
 			}
 			elseif (0xF0 == (0xF8 & ($in)))
 			{
 				// First octet of 4 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x07) << 18;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x07) << 18;
 				$mState = 3;
 				$mBytes = 4;
 			}
@@ -79,23 +82,23 @@ function isValid($str)
 				 * Rather than trying to resynchronize, we will carry on until the end
 				 * of the sequence and let the later error handling code catch it.
 				 */
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x03) << 24;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x03) << 24;
 				$mState = 4;
 				$mBytes = 5;
 			}
 			elseif (0xFC == (0xFE & ($in)))
 			{
 				// First octet of 6 octet sequence, see comments for 5 octet sequence.
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 1) << 30;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 1) << 30;
 				$mState = 5;
 				$mBytes = 6;
 			}
 			else
 			{
 				// Current octet is neither in the US-ASCII range nor a legal first octet of a multi-octet sequence.
-				return false;
+				return FALSE;
 			}
 		}
 		else
@@ -105,8 +108,8 @@ function isValid($str)
 			{
 				// Legal continuation.
 				$shift = ($mState - 1) * 6;
-				$tmp = $in;
-				$tmp = ($tmp & 0x0000003F) << $shift;
+				$tmp   = $in;
+				$tmp   = ($tmp & 0x0000003F) << $shift;
 				$mUcs4 |= $tmp;
 
 				/**
@@ -119,19 +122,18 @@ function isValid($str)
 					 * Check for illegal sequences and codepoints.
 					 */
 					// From Unicode 3.1, non-shortest form is illegal
-					if (((2 == $mBytes) && ($mUcs4 < 0x0080)) || ((3 == $mBytes) && ($mUcs4 < 0x0800)) ||
-							((4 == $mBytes) && ($mUcs4 < 0x10000)) || (4 < $mBytes) ||
-							// From Unicode 3.2, surrogate characters are illegal
-							(($mUcs4 & 0xFFFFF800) == 0xD800) ||
-							// Codepoints outside the Unicode range are illegal
-							($mUcs4 > 0x10FFFF))
+					if
+					(
+						((2 == $mBytes) && ($mUcs4 < 0x0080)) || ((3 == $mBytes) && ($mUcs4 < 0x0800)) || ((4 == $mBytes) && ($mUcs4 < 0x10000)) || (4 < $mBytes) || // From Unicode 3.2, surrogate characters are illegal
+						(($mUcs4 & 0xFFFFF800) == 0xD800) || // Codepoints outside the Unicode range are illegal
+						($mUcs4 > 0x10FFFF)
+					)
 					{
-						return false;
+						return FALSE;
 					}
-
 					// Initialize UTF8 cache
 					$mState = 0;
-					$mUcs4 = 0;
+					$mUcs4  = 0;
 					$mBytes = 1;
 				}
 			}
@@ -141,12 +143,11 @@ function isValid($str)
 				 * ((0xC0 & (*in) != 0x80) && (mState != 0))
 				 * Incomplete multi-octet sequence.
 				 */
-				return false;
+				return FALSE;
 			}
 		}
 	}
-
-	return true;
+	return TRUE;
 }
 
 /**
@@ -162,13 +163,17 @@ function isValid($str)
  *
  * @see utf8_is_valid
  * @see http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
+ *
  * @param string $str UTF-8 string to check
+ *
  * @return boolean TRUE if string is valid UTF-8
  */
-function compliant($str)
+function compliant ($str)
 {
-	if(empty($str))
-		return true;
+	if (empty($str))
+	{
+		return TRUE;
+	}
 
 	// If even just the first character can be matched, when the /u
 	// modifier is used, then it's valid UTF-8. If the UTF-8 is somehow

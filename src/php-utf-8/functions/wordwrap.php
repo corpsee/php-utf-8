@@ -7,22 +7,24 @@ namespace utf8;
  *
  * Wraps a string to a given number of characters
  *
- * @see http://www.php.net/manual/en/function.wordwrap.php
- * @param string $str the input string
- * @param int $width the column width
+ * @see        http://www.php.net/manual/en/function.wordwrap.php
+ *
+ * @param string $str   the input string
+ * @param int    $width the column width
  * @param string $break the line is broken using the optional break parameter
+ *
  * @return string the given string wrapped at the specified column
- * @package php-utf8
+ * @package    php-utf8
  * @subpackage functions
  */
-function wordwrap($str, $width = 75, $break = "\n")
+function wordwrap ($str, $width = 75, $break = "\n")
 {
 	$lines = array();
 
 	while (!empty($str))
 	{
 		// We got a line with a break in it somewhere before the end
-		if (preg_match('%^(.{1,'.$width.'})(?:\s|$)%', $str, $matches))
+		if (preg_match('%^(.{1,' . $width . '})(?:\s|$)%', $str, $matches))
 		{
 			// Add this line to the output
 			$lines[] = $matches[1];
@@ -39,6 +41,5 @@ function wordwrap($str, $width = 75, $break = "\n")
 			$str = substr($str, $width);
 		}
 	}
-
 	return implode($break, $lines);
 }

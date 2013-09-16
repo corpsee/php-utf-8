@@ -2,7 +2,6 @@
 
 namespace utf8;
 
-
 /**
  * Tools for conversion between UTF-8 and unicode
  * The Original Code is Mozilla Communicator client code.
@@ -12,10 +11,10 @@ namespace utf8;
  * Ported to PHP by Henri Sivonen (http://hsivonen.iki.fi)
  * Slight modifications to fit with phputf8 library by Harry Fuecks (hfuecks gmail com)
  *
- * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
- * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
- * @see http://hsivonen.iki.fi/php-utf8/
- * @package php-utf8
+ * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
+ * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
+ * @see        http://hsivonen.iki.fi/php-utf8/
+ * @package    php-utf8
  * @subpackage utils
  */
 
@@ -27,16 +26,18 @@ namespace utf8;
  * Note: this function has been modified slightly in this library to trigger errors on encountering bad bytes
  *
  * @author <hsivonen@iki.fi>
+ *
  * @param string $str UTF-8 encoded string
+ *
  * @return mixed array of unicode code points or FALSE if UTF-8 invalid
- * @see utf8_from_unicode
- * @see http://hsivonen.iki.fi/php-utf8/
+ * @see    utf8_from_unicode
+ * @see    http://hsivonen.iki.fi/php-utf8/
  */
-function toUnicode($str)
+function toUnicode ($str)
 {
 	$mState = 0; // Cached expected number of octets after the current octet
-	             // until the beginning of the next UTF8 character sequence
-	$mUcs4 = 0; // Cached Unicode character
+	// until the beginning of the next UTF8 character sequence
+	$mUcs4  = 0; // Cached Unicode character
 	$mBytes = 1; // Cached expected number of octets in the current sequence
 
 	$out = array();
@@ -52,30 +53,30 @@ function toUnicode($str)
 			if (0 == (0x80 & ($in)))
 			{
 				// US-ASCII, pass straight through.
-				$out[] = $in;
+				$out[]  = $in;
 				$mBytes = 1;
 			}
 			elseif (0xC0 == (0xE0 & ($in)))
 			{
 				// First octet of 2 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x1F) << 6;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x1F) << 6;
 				$mState = 1;
 				$mBytes = 2;
 			}
 			elseif (0xE0 == (0xF0 & ($in)))
 			{
 				// First octet of 3 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x0F) << 12;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x0F) << 12;
 				$mState = 2;
 				$mBytes = 3;
 			}
 			elseif (0xF0 == (0xF8 & ($in)))
 			{
 				// First octet of 4 octet sequence
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x07) << 18;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x07) << 18;
 				$mState = 3;
 				$mBytes = 4;
 			}
@@ -89,24 +90,24 @@ function toUnicode($str)
 				 * Rather than trying to resynchronize, we will carry on until the end
 				 * of the sequence and let the later error handling code catch it.
 				 */
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 0x03) << 24;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 0x03) << 24;
 				$mState = 4;
 				$mBytes = 5;
 			}
 			elseif (0xFC == (0xFE & ($in)))
 			{
 				// First octet of 6 octet sequence, see comments for 5 octet sequence.
-				$mUcs4 = ($in);
-				$mUcs4 = ($mUcs4 & 1) << 30;
+				$mUcs4  = ($in);
+				$mUcs4  = ($mUcs4 & 1) << 30;
 				$mState = 5;
 				$mBytes = 6;
 			}
 			else
 			{
 				// Current octet is neither in the US-ASCII range nor a legal first octet of a multi-octet sequence
-				trigger_error('utf8_to_unicode: Illegal sequence identifier in UTF-8 at byte '.$i, E_USER_WARNING);
-				return false;
+				trigger_error('utf8_to_unicode: Illegal sequence identifier in UTF-8 at byte ' . $i, E_USER_WARNING);
+				return FALSE;
 			}
 		}
 		else
@@ -116,8 +117,8 @@ function toUnicode($str)
 			{
 				// Legal continuation.
 				$shift = ($mState - 1) * 6;
-				$tmp = $in;
-				$tmp = ($tmp & 0x0000003F) << $shift;
+				$tmp   = $in;
+				$tmp   = ($tmp & 0x0000003F) << $shift;
 				$mUcs4 |= $tmp;
 
 				/**
@@ -130,24 +131,26 @@ function toUnicode($str)
 					 * Check for illegal sequences and codepoints.
 					 */
 					// From Unicode 3.1, non-shortest form is illegal
-					if (((2 == $mBytes) && ($mUcs4 < 0x0080)) || ((3 == $mBytes) && ($mUcs4 < 0x0800)) ||
-							((4 == $mBytes) && ($mUcs4 < 0x10000)) || (4 < $mBytes) ||
-							// From Unicode 3.2, surrogate characters are illegal
-							(($mUcs4 & 0xFFFFF800) == 0xD800) ||
-							// Codepoints outside the Unicode range are illegal
-							($mUcs4 > 0x10FFFF))
+					if
+					(
+						((2 == $mBytes) && ($mUcs4 < 0x0080)) || ((3 == $mBytes) && ($mUcs4 < 0x0800)) || ((4 == $mBytes) && ($mUcs4 < 0x10000)) || (4 < $mBytes) || // From Unicode 3.2, surrogate characters are illegal
+						(($mUcs4 & 0xFFFFF800) == 0xD800) || // Codepoints outside the Unicode range are illegal
+						($mUcs4 > 0x10FFFF)
+					)
 					{
-						trigger_error('utf8_to_unicode: Illegal sequence or codepoint in UTF-8 at byte '.$i, E_USER_WARNING);
-						return false;
+						trigger_error('utf8_to_unicode: Illegal sequence or codepoint in UTF-8 at byte ' . $i, E_USER_WARNING);
+						return FALSE;
 					}
 
 					// BOM is legal but we don't want to output it
 					if (0xFEFF != $mUcs4)
+					{
 						$out[] = $mUcs4;
+					}
 
 					// Initialize UTF8 cache
 					$mState = 0;
-					$mUcs4 = 0;
+					$mUcs4  = 0;
 					$mBytes = 1;
 				}
 			}
@@ -155,12 +158,11 @@ function toUnicode($str)
 			{
 				/* ((0xC0 & (*in) != 0x80) && (mState != 0))
 				  Incomplete multi-octet sequence. */
-				trigger_error('utf8_to_unicode: Incomplete multi-octet sequence in UTF-8 at byte '.$i, E_USER_WARNING);
-				return false;
+				trigger_error('utf8_to_unicode: Incomplete multi-octet sequence in UTF-8 at byte ' . $i, E_USER_WARNING);
+				return FALSE;
 			}
 		}
 	}
-
 	return $out;
 }
 
@@ -171,20 +173,24 @@ function toUnicode($str)
  * Returns false if the input array contains ints that represent surrogates or are outside the Unicode range and raises a PHP error at level E_USER_WARNING
  * Note: this function has been modified slightly in this library to use output buffering to concatenate the UTF-8 string (faster) as well as reference the array by it's keys
  *
- * @see utf8_to_unicode
- * @see http://hsivonen.iki.fi/php-utf8/
+ * @see    utf8_to_unicode
+ * @see    http://hsivonen.iki.fi/php-utf8/
+ *
  * @param array $arr  Array of unicode code points representing a string
+ *
  * @return mixed UTF-8 string or FALSE if array contains invalid code points
  * @author <hsivonen@iki.fi>
  */
-function fromUnicode($arr)
+function fromUnicode ($arr)
 {
 	ob_start();
 
-	foreach(array_keys($arr) as $k)
+	foreach (array_keys($arr) as $k)
 	{
-		if(($arr[$k] >= 0) && ($arr[$k] <= 0x007f)) // ASCII range (including control chars)
+		if (($arr[$k] >= 0) && ($arr[$k] <= 0x007f)) // ASCII range (including control chars)
+		{
 			echo chr($arr[$k]);
+		}
 		elseif ($arr[$k] <= 0x07ff) // 2 byte sequence
 		{
 			echo chr(0xc0 | ($arr[$k] >> 6));
@@ -197,8 +203,8 @@ function fromUnicode($arr)
 		elseif ($arr[$k] >= 0xD800 && $arr[$k] <= 0xDFFF) // Test for illegal surrogates
 		{
 			// Found a surrogate
-			trigger_error('utf8_from_unicode: Illegal surrogate at index: '.$k.', value: '.$arr[$k], E_USER_WARNING);
-			return false;
+			trigger_error('utf8_from_unicode: Illegal surrogate at index: ' . $k . ', value: ' . $arr[$k], E_USER_WARNING);
+			return FALSE;
 		}
 		elseif ($arr[$k] <= 0xffff) // 3 byte sequence
 		{
@@ -216,13 +222,11 @@ function fromUnicode($arr)
 		else
 		{
 			// Out of range
-			trigger_error('utf8_from_unicode: Codepoint out of Unicode range at index: '.$k.', value: '.$arr[$k], E_USER_WARNING);
-			return false;
+			trigger_error('utf8_from_unicode: Codepoint out of Unicode range at index: ' . $k . ', value: ' . $arr[$k], E_USER_WARNING);
+			return FALSE;
 		}
 	}
-
 	$result = ob_get_contents();
 	ob_end_clean();
-
 	return $result;
 }
