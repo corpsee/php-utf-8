@@ -4,8 +4,8 @@ namespace utf8;
 
 // utf8_strpos() and utf8_strrpos() need utf8_bad_strip() to strip invalid
 // characters. Mbstring doesn't do this while the Native implementation does.
-require_once PHP_UTF8_DIR . '/utils/patterns.php';
-require_once PHP_UTF8_DIR . '/utils/bad.php';
+require_once PHP_UTF_8_DIR . '/utils/patterns.php';
+require_once PHP_UTF_8_DIR . '/utils/bad.php';
 
 /**
  * Wrapper round mb_strlen.
@@ -43,15 +43,15 @@ function len ($str)
  *
  * Find position of first occurrence of a string.
  *
- * @param string $str    haystack
- * @param string $search needle (you should validate this with utf8_is_valid)
- * @param        integer offset in characters (from left)
+ * @param string  $str    haystack
+ * @param string  $search needle (you should validate this with utf8_is_valid)
+ * @param integer $offset offset in characters (from left)
  *
  * @return mixed integer position or FALSE on failure
  */
 function pos ($str, $search, $offset = FALSE)
 {
-	$str = badClean($str);
+	$str = bad_clean($str);
 
 	if ($offset === FALSE)
 	{
@@ -73,7 +73,7 @@ function pos ($str, $search, $offset = FALSE)
  */
 function rpos ($str, $search, $offset = FALSE)
 {
-	$str = badClean($str);
+	$str = bad_clean($str);
 
 	if (!$offset)
 	{
@@ -133,7 +133,7 @@ function sub ($str, $offset, $length = FALSE)
  *
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function toLower ($str)
+function to_lower ($str)
 {
 	return mb_strtolower($str);
 }
@@ -151,7 +151,7 @@ function toLower ($str)
  *
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function toUpper ($str)
+function to_upper ($str)
 {
 	return mb_strtoupper($str);
 }

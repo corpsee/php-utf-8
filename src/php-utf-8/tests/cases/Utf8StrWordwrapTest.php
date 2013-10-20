@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF8_DIR . '/functions/wordwrap.php';
+require_once PHP_UTF_8_DIR . '/functions/wordwrap.php';
 
 class Utf8StrWordwrapTest extends PHPUnit_Framework_TestCase
 {

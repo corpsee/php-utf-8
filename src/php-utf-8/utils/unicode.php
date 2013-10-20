@@ -14,7 +14,7 @@ namespace utf8;
  * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
  * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
  * @see        http://hsivonen.iki.fi/php-utf8/
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage utils
  */
 
@@ -33,7 +33,7 @@ namespace utf8;
  * @see    utf8_from_unicode
  * @see    http://hsivonen.iki.fi/php-utf8/
  */
-function toUnicode ($str)
+function to_unicode ($str)
 {
 	$mState = 0; // Cached expected number of octets after the current octet
 	// until the beginning of the next UTF8 character sequence
@@ -181,7 +181,7 @@ function toUnicode ($str)
  * @return mixed UTF-8 string or FALSE if array contains invalid code points
  * @author <hsivonen@iki.fi>
  */
-function fromUnicode ($arr)
+function from_unicode ($arr)
 {
 	ob_start();
 

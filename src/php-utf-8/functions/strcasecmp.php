@@ -7,7 +7,7 @@ namespace utf8;
  *
  * A case insensivite string comparison
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @see        http://www.php.net/strcasecmp
  * @uses       utf8_strtolower
@@ -19,8 +19,8 @@ namespace utf8;
  */
 function casecmp ($str_x, $str_y)
 {
-	$str_x = toLower($str_x);
-	$str_y = toLower($str_y);
+	$str_x = to_lower($str_x);
+	$str_y = to_lower($str_y);
 	return strcmp($str_x, $str_y);
 }
 

@@ -7,7 +7,7 @@ namespace utf8;
  *
  * Make a string's first character uppercase
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @see        http://www.php.net/ucfirst
  * @uses       utf8_strtoupper
@@ -24,10 +24,10 @@ function ucfirst ($str)
 			return '';
 			break;
 		case 1:
-			return toUpper($str);
+			return to_upper($str);
 			break;
 		default:
 			preg_match('/^(.{1})(.*)$/us', $str, $matches);
-			return toUpper($matches[1]) . $matches[2];
+			return to_upper($matches[1]) . $matches[2];
 	}
 }

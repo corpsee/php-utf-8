@@ -12,7 +12,7 @@ namespace utf8;
  * @param string $chr UTF-8 encoded character
  *
  * @return int unicode ordinal for the character
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  */
 function ord ($chr)

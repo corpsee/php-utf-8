@@ -5,7 +5,7 @@ namespace utf8;
 /**
  * Locate a byte index given a UTF-8 character index.
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage utils
  */
 
@@ -27,7 +27,7 @@ namespace utf8;
  *
  * @return mixed - int if only one input int, array if more, boolean TRUE if it's all ASCII
  */
-function bytePosition ()
+function byte_position ()
 {
 	$args = func_get_args();
 	$str  = array_shift($args);
@@ -39,7 +39,7 @@ function bytePosition ()
 
 	$result = array();
 	$prev   = array(0, 0); // Trivial byte index, character offset pair
-	$i      = locateNextChr($str, 300); // Use a short piece of str to estimate bytes per character. $i (& $j) -> byte indexes into $str
+	$i      = locate_next_chr($str, 300); // Use a short piece of str to estimate bytes per character. $i (& $j) -> byte indexes into $str
 	$c      = strlen(utf8_decode(substr($str, 0, $i))); // $c -> character offset into $str
 
 	// Deal with arguments from lowest to highest
@@ -69,7 +69,7 @@ function bytePosition ()
 			}
 
 			$j    = $i + (int)(($offset - $c) * ($i - $prev[0]) / ($c - $prev[1]));
-			$j    = locateNextChr($str, $j); // Correct to utf8 character boundary
+			$j    = locate_next_chr($str, $j); // Correct to utf8 character boundary
 			$prev = array($i, $c); // Save the index, offset for use next iteration
 
 			if ($j > $i)
@@ -92,7 +92,7 @@ function bytePosition ()
 				// Move up
 				while ($error--)
 				{
-					$i = locateNextChr($str, ++$i);
+					$i = locate_next_chr($str, ++$i);
 				}
 			}
 			else
@@ -100,7 +100,7 @@ function bytePosition ()
 				// Move down
 				while ($error--)
 				{
-					$i = locateCurrentChr($str, --$i);
+					$i = locate_current_chr($str, --$i);
 				}
 			}
 			// Ready for next arg
@@ -131,7 +131,7 @@ function bytePosition ()
  *
  * @return int byte index of start of next UTF-8 character
  */
-function locateCurrentChr (&$str, $idx)
+function locate_current_chr (&$str, $idx)
 {
 	if ($idx <= 0)
 	{
@@ -168,7 +168,7 @@ function locateCurrentChr (&$str, $idx)
  *
  * @return int byte index of start of next UTF-8 character
  */
-function locateNextChr (&$str, $idx)
+function locate_next_chr (&$str, $idx)
 {
 	if ($idx <= 0)
 	{

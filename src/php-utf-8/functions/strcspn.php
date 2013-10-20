@@ -7,7 +7,7 @@ namespace utf8;
  *
  * Find length of initial segment not matching mask.
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @see        http://www.php.net/strcspn
  * @uses       utf8_strlen

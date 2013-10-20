@@ -11,7 +11,7 @@
          bootstrap="./tests/bootstrap.php"
 >
 	<php>
-		<const name="PHP_UTF8_MODE" value="mbstring" />
+		<const name="PHP_UTF_8_MODE" value="mbstring" />
 	</php>
     <testsuites>
         <testsuite name="PHP-UTF-8 mbstring Test Suite">

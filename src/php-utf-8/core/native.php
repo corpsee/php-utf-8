@@ -26,7 +26,7 @@ namespace utf8;
 */
 function len ($str)
 {
-	return strlen(utf8_decode(badClean($str)));
+	return strlen(utf8_decode(bad_clean($str)));
 }
 
 /**
@@ -293,11 +293,11 @@ function sub ($str, $offset, $length = FALSE)
  *
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function toLower ($string)
+function to_lower ($string)
 {
 	static $UTF8_UPPER_TO_LOWER;
 
-	$uni = toUnicode($string);
+	$uni = to_unicode($string);
 	if (!$uni)
 	{
 		return FALSE;
@@ -316,7 +316,7 @@ function toLower ($string)
 			$uni[$i] = $UTF8_UPPER_TO_LOWER[$uni[$i]];
 		}
 	}
-	return fromUnicode($uni);
+	return from_unicode($uni);
 }
 
 /**
@@ -339,11 +339,11 @@ function toLower ($string)
  *
  * @return mixed either string in lowercase or FALSE is UTF-8 invalid
  */
-function toUpper ($string)
+function to_upper ($string)
 {
 	static $UTF8_LOWER_TO_UPPER;
 
-	$uni = toUnicode($string);
+	$uni = to_unicode($string);
 	if (!$uni)
 	{
 		return FALSE;
@@ -362,11 +362,11 @@ function toUpper ($string)
 			$uni[$i] = $UTF8_LOWER_TO_UPPER[$uni[$i]];
 		}
 	}
-	return fromUnicode($uni);
+	return from_unicode($uni);
 }
 
 // Is needed by utf8_ucwords_callback()
-require_once PHP_UTF8_DIR . '/functions/substr_replace.php';
+require_once PHP_UTF_8_DIR . '/functions/substr_replace.php';
 
 /**
  * UTF-8 aware alternative to ucwords.
@@ -391,8 +391,8 @@ function ucwords ($str)
 	return preg_replace_callback($pattern, function ($match)
 	{
 		$leadingws = $match[2];
-		$ucfirst   = toUpper($match[3]);
-		$ucword    = subReplace(ltrim($match[0]), $ucfirst, 0, 1);
+		$ucfirst   = to_upper($match[3]);
+		$ucword    = sub_replace(ltrim($match[0]), $ucfirst, 0, 1);
 
 		return $leadingws . $ucword;
 	}, $str);

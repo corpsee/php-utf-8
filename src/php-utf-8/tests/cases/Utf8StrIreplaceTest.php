@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF8_DIR.'/functions/str_ireplace.php';
+require_once PHP_UTF_8_DIR.'/functions/str_ireplace.php';
 
 
 class Utf8StrIreplaceTest extends PHPUnit_Framework_TestCase

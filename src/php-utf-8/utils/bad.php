@@ -16,7 +16,7 @@ namespace utf8;
  * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
  * @see        http://hsivonen.iki.fi/php-utf8/
  * @see        utf8_is_valid
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage utils
  */
 
@@ -35,7 +35,7 @@ namespace utf8;
  *
  * @return mixed integer byte index or FALSE if no bad found
  */
-function badFind ($str, $first_only = TRUE)
+function bad_find ($str, $first_only = TRUE)
 {
 	$pos      = 0;
 	$bad_list = array();
@@ -77,7 +77,7 @@ function badFind ($str, $first_only = TRUE)
  *
  * @return string
  */
-function badClean ($str, $replace = FALSE)
+function bad_clean ($str, $replace = FALSE)
 {
 	ob_start();
 
@@ -173,7 +173,7 @@ define('utf8\BAD_SEQINCOMPLETE', 7);
  * @see    utf8_bad_explain
  * @see    http://hsivonen.iki.fi/php-utf8/
  */
-function badIdentify ($str, &$i)
+function bad_identify ($str, &$i)
 {
 	$mState = 0; // Cached expected number of octets after the current octet
 	// until the beginning of the next UTF8 character sequence
@@ -307,7 +307,7 @@ function badIdentify ($str, &$i)
  * @return mixed string message or FALSE if return code unknown
  * @see utf8_bad_identify
  */
-function badExplain ($code)
+function bad_explain ($code)
 {
 	static $errors;
 

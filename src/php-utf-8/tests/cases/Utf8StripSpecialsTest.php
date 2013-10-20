@@ -1,14 +1,14 @@
 <?php
 
-require_once PHP_UTF8_DIR . '/utils/unicode.php';
-require_once PHP_UTF8_DIR . '/utils/specials.php';
+require_once PHP_UTF_8_DIR . '/utils/unicode.php';
+require_once PHP_UTF_8_DIR . '/utils/specials.php';
 
 
 class Utf8StripSpecialsTest extends PHPUnit_Framework_TestCase
 {
 	public function test_empty_string()
 	{
-		$this->assertEquals('', utf8\stripSpecials(''));
+		$this->assertEquals('', utf8\strip_specials(''));
 	}
 
 	public function test_strip()
@@ -19,6 +19,6 @@ class Utf8StripSpecialsTest extends PHPUnit_Framework_TestCase
 			chr(0x80 | (0x2234 & 0x003f)).
 			' World';
 
-		$this->assertEquals('HelloWorld', utf8\stripSpecials($str));
+		$this->assertEquals('HelloWorld', utf8\strip_specials($str));
 	}
 }

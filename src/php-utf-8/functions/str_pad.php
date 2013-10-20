@@ -8,7 +8,7 @@ namespace utf8;
  * $pad_str may contain multi-byte characters.
  *
  * @author     Oliver Saunders <oliver@osinternetservices.com>
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @see        http://www.php.net/str_pad
  * @uses       utf8_substr

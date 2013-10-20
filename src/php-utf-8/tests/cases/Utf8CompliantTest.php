@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF8_DIR . '/utils/validation.php';
+require_once PHP_UTF_8_DIR . '/utils/validation.php';
 
 
 class Utf8CompliantTest extends PHPUnit_Framework_TestCase

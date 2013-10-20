@@ -7,7 +7,7 @@ namespace utf8;
  *
  * Reverse a string.
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @see        http://www.php.net/strrev
  *
