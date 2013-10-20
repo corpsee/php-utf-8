@@ -9,37 +9,71 @@ namespace utf8;
  *
  * @see        http://www.php.net/manual/en/function.wordwrap.php
  *
- * @param string $str   the input string
- * @param int    $width the column width
- * @param string $break the line is broken using the optional break parameter
+ * @param string  $str   the input string
+ * @param int     $width the column width
+ * @param string  $break the line is broken using the optional break parameter
+ * @param boolean $cut
  *
  * @return string the given string wrapped at the specified column
  * @package    php-utf8
  * @subpackage functions
  */
-function wordwrap ($str, $width = 75, $break = "\n")
+function wordwrap ($str, $width = 75, $break = "\n", $cut = FALSE)
 {
-	$lines = array();
+	$width = (int)$width;
+	$str     = explode($break, $str);
 
-	while (!empty($str))
+	$iLen    = count($str);
+	$result  = array();
+	$line    = '';
+	$lineLen = 0;
+
+	for ($i = 0; $i < $iLen; ++$i)
 	{
-		// We got a line with a break in it somewhere before the end
-		if (preg_match('%^(.{1,' . $width . '})(?:\s|$)%', $str, $matches))
-		{
-			// Add this line to the output
-			$lines[] = $matches[1];
+		$words = explode(' ', $str[$i]);
+		$line && $result[] = $line;
+		$lineLen = len($line);
+		$jLen    = count($words);
 
-			// Trim it off the input ready for the next go
-			$str = substr($str, strlen($matches[0]));
-		}
-		// Just take the next $width characters
-		else
+		for ($j = 0; $j < $jLen; ++$j)
 		{
-			$lines[] = substr($str, 0, $width);
+			$w    = $words[$j];
+			$wLen = len($w);
 
-			// Trim it off the input ready for the next go
-			$str = substr($str, $width);
+			if ($lineLen + $wLen < $width)
+			{
+				if ($j)
+					$line .= ' ';
+				$line .= $w;
+				$lineLen += $wLen + 1;
+			}
+			else
+			{
+				if ($j || $i)
+					$result[] = $line;
+				$line    = '';
+				$lineLen = 0;
+
+				if ($cut && $wLen > $width)
+				{
+					$w = split($w);
+
+					do
+					{
+						$result[] = implode('', array_slice($w, 0, $width));
+						$line     = implode('', $w = array_slice($w, $width));
+						$lineLen  = $wLen -= $width;
+					}
+					while ($wLen > $width);
+					$w = implode('', $w);
+				}
+
+				$line    = $w;
+				$lineLen = $wLen;
+			}
 		}
 	}
-	return implode($break, $lines);
+	$line && $result[] = $line;
+
+	return implode($break, $result);
 }
