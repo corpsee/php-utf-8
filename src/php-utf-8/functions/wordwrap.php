@@ -18,41 +18,46 @@ namespace utf8;
  * @package    php-utf-8
  * @subpackage functions
  */
+/* Function from https://github.com/nicolas-grekas/Patchwork-UTF8 */
 function wordwrap ($str, $width = 75, $break = "\n", $cut = FALSE)
 {
-	$width = (int)$width;
+	$width   = (int)$width;
 	$str     = explode($break, $str);
 
-	$iLen    = count($str);
-	$result  = array();
-	$line    = '';
-	$lineLen = 0;
+	$i_len    = count($str);
+	$result   = array();
+	$line     = '';
+	$line_len = 0;
 
-	for ($i = 0; $i < $iLen; ++$i)
+	for ($i = 0; $i < $i_len; ++$i)
 	{
-		$words = explode(' ', $str[$i]);
+		$words             = explode(' ', $str[$i]);
 		$line && $result[] = $line;
-		$lineLen = len($line);
-		$jLen    = count($words);
+		$line_len          = len($line);
+		$jLen              = count($words);
 
 		for ($j = 0; $j < $jLen; ++$j)
 		{
 			$w    = $words[$j];
 			$wLen = len($w);
 
-			if ($lineLen + $wLen < $width)
+			if ($line_len + $wLen < $width)
 			{
 				if ($j)
+				{
 					$line .= ' ';
-				$line .= $w;
-				$lineLen += $wLen + 1;
+				}
+				$line     .= $w;
+				$line_len += $wLen + 1;
 			}
 			else
 			{
 				if ($j || $i)
+				{
 					$result[] = $line;
-				$line    = '';
-				$lineLen = 0;
+				}
+				$line     = '';
+				$line_len = 0;
 
 				if ($cut && $wLen > $width)
 				{
@@ -60,16 +65,15 @@ function wordwrap ($str, $width = 75, $break = "\n", $cut = FALSE)
 
 					do
 					{
-						$result[] = implode('', array_slice($w, 0, $width));
-						$line     = implode('', $w = array_slice($w, $width));
-						$lineLen  = $wLen -= $width;
+						$result[]  = implode('', array_slice($w, 0, $width));
+						$line      = implode('', $w = array_slice($w, $width));
+						$line_len  = $wLen -= $width;
 					}
 					while ($wLen > $width);
 					$w = implode('', $w);
 				}
-
-				$line    = $w;
-				$lineLen = $wLen;
+				$line     = $w;
+				$line_len = $wLen;
 			}
 		}
 	}
