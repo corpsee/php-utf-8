@@ -20,6 +20,9 @@
 		"php":      ">=5.3.0",
 		"lib-pcre": "*"
 	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.28"
+	},
 	"suggest":     {
 		"ext-mbstring": "Use Mbstring for best performance"
 	},

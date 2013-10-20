@@ -1,3 +1,4 @@
-tests/config.php
-ref/
+/vendor
+/.idea
+/composer.lock
 /composer.phar
