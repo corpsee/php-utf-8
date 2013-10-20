@@ -13,7 +13,7 @@ namespace utf8;
  * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
  * @see        http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
  * @see        http://hsivonen.iki.fi/php-utf8/
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage utils
  */
 
@@ -28,7 +28,7 @@ namespace utf8;
  *
  * @return boolean TRUE if valid
  */
-function isValid ($str)
+function is_valid ($str)
 {
 	$mState = 0; // Cached expected number of octets after the current octet
 	// until the beginning of the next UTF8 character sequence

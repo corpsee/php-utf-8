@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF8_DIR.'/functions/strcasecmp.php';
+require_once PHP_UTF_8_DIR.'/functions/strcasecmp.php';
 
 
 class Utf8StrcasecmpTest extends PHPUnit_Framework_TestCase

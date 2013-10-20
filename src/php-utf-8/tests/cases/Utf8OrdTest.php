@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF8_DIR.'/functions/ord.php';
+require_once PHP_UTF_8_DIR.'/functions/ord.php';
 
 
 class Utf8OrdTest extends PHPUnit_Framework_TestCase

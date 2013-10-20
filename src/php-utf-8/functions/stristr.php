@@ -7,7 +7,7 @@ namespace utf8;
  *
  * Find first occurrence of a string using case insensitive comparison.
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @see        http://www.php.net/strcasecmp
  * @uses       utf8_strtolower
@@ -24,8 +24,8 @@ function ifind ($str, $search)
 		return $str;
 	}
 
-	$lstr    = toLower($str);
-	$lsearch = toLower($search);
+	$lstr    = to_lower($str);
+	$lsearch = to_lower($search);
 	preg_match('/^(.*)' . preg_quote($lsearch) . '/Us', $lstr, $matches);
 
 	if (count($matches) == 2)

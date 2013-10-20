@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF8_DIR.'/functions/trim.php';
+require_once PHP_UTF_8_DIR.'/functions/trim.php';
 
 
 class Utf8RtrimTest extends PHPUnit_Framework_TestCase

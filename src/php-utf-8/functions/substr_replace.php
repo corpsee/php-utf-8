@@ -5,7 +5,7 @@ namespace utf8;
 /**
  * UTF-8 aware substr_replace.
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @see        http://www.php.net/substr_replace
  * @uses       utf8_strlen
@@ -18,7 +18,7 @@ namespace utf8;
  *
  * @return string
  */
-function subReplace ($str, $repl, $start, $length = NULL)
+function sub_replace ($str, $repl, $start, $length = NULL)
 {
 	preg_match_all('/./us', $str, $ar);
 	preg_match_all('/./us', $repl, $rar);

@@ -1,10 +1,8 @@
 php-utf-8
-=========
+---------
 
-This is fork of the [FSX/php-utf8][8] library. It was created because the author of origin library doesn`t support it.
-
-php-utf8
---------
+This is fork of the [FSX/php-utf8][8] library. It was created because the author of
+origin library doesn`t support it.
 
 php-utf8 is a UTF-8 aware library of functions mirroring PHP's own string
 functions. Does not require PHP mbstring extension though will use it, if
@@ -24,7 +22,7 @@ and new features.
 Documentation & Usage Information
 ---------------------------------
 
-Using the php-utf8 library is quite easy. Just include the `php-utf8.php` and
+Using the php-utf-8 library is quite easy. Just include the `php-utf8.php` and
 any additional functions that you may need from the `functions` folder.
 
 Sample Code:
@@ -60,7 +58,7 @@ control characters. [more info][5]
 Licensing
 ---------
 
-The initial code of php-utf8 is published under LGPL. Please find a copy of the
+The initial code of php-utf-8 is published under LGPL. Please find a copy of the
 license in the LICENSE file.
 
 Parts of the code in this library come from other places, under different licenses.
@@ -73,7 +71,7 @@ Attribution for which code came from elsewhere can be found in the source code i
    released under LGPL, hence no conflict with phputf8*
  - Henri Sivonen ([site][7]) *has also given permission for his code to be released
    under the terms of the LGPL. He ported a Unicode / UTF-8 converter from the
-   Mozilla codebase to PHP, which is re-used in php-utf8.*
+   Mozilla codebase to PHP, which is re-used in php-utf-8.*
 
 
   [1]: https://github.com/FSX/php-utf8/issues

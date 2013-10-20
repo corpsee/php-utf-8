@@ -1,13 +1,13 @@
 <?php
 
-require_once PHP_UTF8_DIR . '/utils/unicode.php';
+require_once PHP_UTF_8_DIR . '/utils/unicode.php';
 
 
 class Utf8ToUnicodeTest extends PHPUnit_Framework_TestCase
 {
 	public function test_empty_string()
 	{
-		$this->assertEquals(array(), utf8\toUnicode(''));
+		$this->assertEquals(array(), utf8\to_unicode(''));
 	}
 
 	public function test_string()
@@ -34,6 +34,6 @@ class Utf8ToUnicodeTest extends PHPUnit_Framework_TestCase
 		$unicode[18] = 248;
 		$unicode[19] = 110;
 
-		$this->assertEquals($unicode, utf8\toUnicode('Iñtërnâtiônàlizætiøn'));
+		$this->assertEquals($unicode, utf8\to_unicode('Iñtërnâtiônàlizætiøn'));
 	}
 }

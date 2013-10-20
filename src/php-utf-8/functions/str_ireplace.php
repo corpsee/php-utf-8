@@ -11,7 +11,7 @@ namespace utf8;
  * have the same length in bytes which is currently true given the hash table
  * to strtoLower.
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @uses       utf8_strtoLower
  * @see        http://www.php.net/str_ireplace
@@ -35,10 +35,10 @@ function ireplace ($search, $replace, $str, $count = NULL)
 		}
 
 		$lendif = strlen($replace) - strlen($search);
-		$search = toLower($search);
+		$search = to_lower($search);
 
 		$search  = preg_quote($search);
-		$lstr    = toLower($str);
+		$lstr    = to_lower($str);
 		$i       = 0;
 		$matched = 0;
 

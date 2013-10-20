@@ -7,7 +7,7 @@ namespace utf8;
  *
  * Convert a string to an array
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  * @see        http://www.php.net/str_split
  * @uses       utf8_strlen

@@ -8,7 +8,7 @@ namespace utf8;
  * Use these only if you are supplying the charlist optional arg and it contains
  * UTF-8 characters. Otherwise trim will work normally on a UTF-8 string.
  *
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  */
 

@@ -15,7 +15,7 @@ namespace utf8;
  * @param boolean $cut
  *
  * @return string the given string wrapped at the specified column
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage functions
  */
 function wordwrap ($str, $width = 75, $break = "\n", $cut = FALSE)

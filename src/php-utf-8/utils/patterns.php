@@ -10,7 +10,7 @@ namespace utf8;
  * are modified to include full ASCII range including control chars.
  *
  * @see        http://www.w3.org/International/questions/qa-forms-utf-8
- * @package    php-utf8
+ * @package    php-utf-8
  * @subpackage utils
  */
 
