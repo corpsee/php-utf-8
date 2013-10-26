@@ -74,7 +74,7 @@ Attribution for which code came from elsewhere can be found in the source code i
    Mozilla codebase to PHP, which is re-used in php-utf-8.*
 
 
-  [1]: https://github.com/FSX/php-utf8/issues
+  [1]: https://github.com/corpsee/php-utf-8/issues
   [2]: http://www.phpwact.org/php/i18n/charsets
   [3]: http://www.phpwact.org/php/i18n/utf-8
   [4]: http://www.phpwact.org/php/i18n/utf-8
