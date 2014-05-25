@@ -10,7 +10,7 @@ setup:
 test:
     php_unit:
         config:
-            - src/native.xml"
+            - src/native.xml
             - src/mbstring.xml
     php_mess_detector:
         allow_failures: true
