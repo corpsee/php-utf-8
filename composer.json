@@ -27,9 +27,6 @@
 		"ext-mbstring": "Use Mbstring for best performance"
 	},
 	"autoload":    {
-		"PSR-4": {
-
-		},
 		"files": ["src/init.php"]
 	}
 }
