@@ -10,8 +10,8 @@ setup:
 test:
     php_unit:
         config:
-            - "src/native.xml"
-            - "src/mbstring.xml"
+            - "native.xml"
+            - "mbstring.xml"
     php_mess_detector:
         allow_failures: true
     php_cpd:
