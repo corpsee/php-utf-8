@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF_8_DIR.'/functions/stristr.php';
+require_once PHP_UTF_8_DIR . '/functions/stristr.php';
 
 
 class Utf8StristrTest extends PHPUnit_Framework_TestCase

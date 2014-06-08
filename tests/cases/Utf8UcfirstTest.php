@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF_8_DIR.'/functions/ucfirst.php';
+require_once PHP_UTF_8_DIR . '/functions/ucfirst.php';
 
 
 class Utf8UcfirstTest extends PHPUnit_Framework_TestCase

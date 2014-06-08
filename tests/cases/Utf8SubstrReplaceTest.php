@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF_8_DIR.'/functions/substr_replace.php';
+require_once PHP_UTF_8_DIR . '/functions/substr_replace.php';
 
 
 class Utf8SubstrReplaceTest extends PHPUnit_Framework_TestCase
