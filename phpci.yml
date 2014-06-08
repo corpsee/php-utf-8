@@ -1,7 +1,7 @@
 build_settings:
     ignore: 
         - "vendor"
-        - "src/tests"
+        - "tests"
 
 setup:
     composer:
