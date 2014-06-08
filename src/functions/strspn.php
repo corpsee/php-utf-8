@@ -26,14 +26,14 @@ function span ($str, $mask, $start = NULL, $length = NULL)
 
 	if ($start !== NULL || $length !== NULL)
 	{
-		$str = sub($str, $start, $length);
+		$str = \utf8\sub($str, $start, $length);
 	}
 
 	preg_match('/^[' . $mask . ']+/u', $str, $matches);
 
 	if (isset($matches[0]))
 	{
-		return len($matches[0]);
+		return \utf8\len($matches[0]);
 	}
 	return 0;
 }

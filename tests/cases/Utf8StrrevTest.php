@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF_8_DIR.'/functions/strrev.php';
+require_once PHP_UTF_8_DIR . '/functions/strrev.php';
 
 
 class Utf8StrrevTest extends PHPUnit_Framework_TestCase

@@ -1,6 +1,6 @@
 <?php
 
-require_once PHP_UTF_8_DIR.'/functions/str_pad.php';
+require_once PHP_UTF_8_DIR . '/functions/str_pad.php';
 
 
 class Utf8StrPadTest extends PHPUnit_Framework_TestCase

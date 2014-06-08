@@ -21,12 +21,15 @@
 		"lib-pcre": "*"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "3.7.28"
+		"phpunit/phpunit": "3.7.*"
 	},
 	"suggest":     {
 		"ext-mbstring": "Use Mbstring for best performance"
 	},
 	"autoload":    {
-		"files": ["src/php-utf-8/init.php"]
+		"PSR-4": {
+			
+		},
+		"files": ["src/init.php"]
 	}
 }
