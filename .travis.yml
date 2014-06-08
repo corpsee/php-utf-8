@@ -12,5 +12,5 @@ matrix:
 
 install: composer install
 script:
-  - phpunit --configuration src/php-utf-8/native.xml --coverage-text
-  - phpunit --configuration src/php-utf-8/mbstring.xml --coverage-text
+  - phpunit --configuration native.xml --coverage-text
+  - phpunit --configuration mbstring.xml --coverage-text
