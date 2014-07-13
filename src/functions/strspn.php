@@ -13,10 +13,10 @@ namespace utf8;
  * @uses       utf8_strlen
  * @uses       utf8_substr
  *
- * @param string $str
- * @param string $mask
- * @param int    $start
- * @param int    $length
+ * @param string  $str
+ * @param string  $mask
+ * @param integer $start
+ * @param integer $length
  *
  * @return int
  */
