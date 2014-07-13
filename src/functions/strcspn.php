@@ -13,9 +13,12 @@ namespace utf8;
  * @uses       utf8_strlen
  * @uses       utf8_substr
  *
- * @param string
+ * @param string  $str
+ * @param string  $mask
+ * @param integer $start
+ * @param integer $length
  *
- * @return int
+ * @return integer|null
  */
 function cspn ($str, $mask, $start = NULL, $length = NULL)
 {
