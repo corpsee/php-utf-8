@@ -1,3 +1,5 @@
+[![Latest Stable Version](https://poser.pugx.org/corpsee/php-utf-8/v/stable.svg)](https://packagist.org/packages/corpsee/php-utf-8) [![Total Downloads](https://poser.pugx.org/corpsee/php-utf-8/downloads.svg)](https://packagist.org/packages/corpsee/php-utf-8) [![Latest Unstable Version](https://poser.pugx.org/corpsee/php-utf-8/v/unstable.svg)](https://packagist.org/packages/corpsee/php-utf-8) [![License](https://poser.pugx.org/corpsee/php-utf-8/license.svg)](https://packagist.org/packages/corpsee/php-utf-8)
+
 php-utf-8
 ---------
 
