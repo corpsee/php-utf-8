@@ -17,7 +17,7 @@
 		"role":     "Developer"
 	}],
 	"require":     {
-		"php":      ">=5.3.0",
+		"php":      ">=5.4.0",
 		"lib-pcre": "*"
 	},
 	"require-dev": {
