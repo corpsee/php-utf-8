@@ -4,6 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/corpsee/php-utf-8/downloads.svg)](https://packagist.org/packages/corpsee/php-utf-8)
 [![Latest Unstable Version](https://poser.pugx.org/corpsee/php-utf-8/v/unstable.svg)](https://packagist.org/packages/corpsee/php-utf-8)
 [![License](https://poser.pugx.org/corpsee/php-utf-8/license.svg)](https://packagist.org/packages/corpsee/php-utf-8)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f348ff6a-40e9-4259-af1f-e88f5f9c588d/mini.png)](https://insight.sensiolabs.com/projects/f348ff6a-40e9-4259-af1f-e88f5f9c588d)
 
 php-utf-8
 ---------
