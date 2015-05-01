@@ -5,11 +5,13 @@ php:
   - 5.6
 
 matrix:
-    allow_failures:
-        - php:
-          - hhvm
+  allow_failures:
+    - php:
+      - hhvm
 
-install: composer install
+install:
+  - composer selfupdate
+  - composer install
 script:
   - phpunit --configuration native.xml   --coverage-text
   - phpunit --configuration mbstring.xml --coverage-text
