@@ -1,13 +1,12 @@
-[![Build Status](http://phpci.corpsee.com/build-status/image/2?branch=master)](http://phpci.corpsee.com/build-status/view/2?branch=master)
-[![Build Status](https://travis-ci.org/corpsee/php-utf-8.svg?branch=master)](https://travis-ci.org/corpsee/php-utf-8)
-[![Latest Stable Version](https://poser.pugx.org/corpsee/php-utf-8/v/stable.svg)](https://packagist.org/packages/corpsee/php-utf-8)
-[![Total Downloads](https://poser.pugx.org/corpsee/php-utf-8/downloads.svg)](https://packagist.org/packages/corpsee/php-utf-8)
-[![Latest Unstable Version](https://poser.pugx.org/corpsee/php-utf-8/v/unstable.svg)](https://packagist.org/packages/corpsee/php-utf-8)
-[![License](https://poser.pugx.org/corpsee/php-utf-8/license.svg)](https://packagist.org/packages/corpsee/php-utf-8)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f348ff6a-40e9-4259-af1f-e88f5f9c588d/mini.png)](https://insight.sensiolabs.com/projects/f348ff6a-40e9-4259-af1f-e88f5f9c588d)
+[![PHPCI](http://phpci.corpsee.com/build-status/image/2?branch=master&label=PHPCI&style=flat-square)](http://phpci.corpsee.com/build-status/view/2?branch=master)
+[![Travis](https://img.shields.io/travis/corpsee/php-utf-8/master.svg?label=Travis&style=flat-square)](https://travis-ci.org/corpsee/php-utf-8?branch=master)
+[![Latest Version](https://img.shields.io/packagist/v/corpsee/php-utf-8.svg?label=Version&style=flat-square)](https://packagist.org/packages/corpsee/php-utf-8)
+[![Total downloads](https://img.shields.io/packagist/dt/corpsee/php-utf-8.svg?label=Downloads&style=flat-square)](https://packagist.org/packages/corpsee/php-utf-8)
+[![License](https://img.shields.io/packagist/l/corpsee/php-utf-8.svg?label=License&style=flat-square)](https://packagist.org/packages/corpsee/php-utf-8)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/f348ff6a-40e9-4259-af1f-e88f5f9c588d.svg?label=Insight&style=flat-square)](https://insight.sensiolabs.com/projects/f348ff6a-40e9-4259-af1f-e88f5f9c588d)
 
-php-utf-8
----------
+PHP-UTF-8
+=========
 
 This is fork of the [FSX/php-utf8][8] library. It was created because the author of
 origin library doesn`t support it.
