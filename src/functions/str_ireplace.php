@@ -23,60 +23,47 @@ namespace utf8;
  *
  * @return string
  */
-function ireplace ($search, $replace, $str, $count = NULL)
+function ireplace($search, $replace, $str, $count = null)
 {
-	if (!is_array($search))
-	{
-		$slen = strlen($search);
+    if (!is_array($search)) {
+        $slen = strlen($search);
 
-		if ($slen == 0)
-		{
-			return $str;
-		}
+        if ($slen == 0) {
+            return $str;
+        }
 
-		$lendif = strlen($replace) - strlen($search);
-		$search = to_lower($search);
+        $lendif = strlen($replace) - strlen($search);
+        $search = to_lower($search);
 
-		$search  = preg_quote($search);
-		$lstr    = to_lower($str);
-		$i       = 0;
-		$matched = 0;
+        $search = preg_quote($search);
+        $lstr = to_lower($str);
+        $i = 0;
+        $matched = 0;
 
-		while (preg_match('/(.*)' . $search . '/Us', $lstr, $matches))
-		{
-			if ($i === $count)
-			{
-				break;
-			}
+        while (preg_match('/(.*)' . $search . '/Us', $lstr, $matches)) {
+            if ($i === $count) {
+                break;
+            }
 
-			$mlen = strlen($matches[0]);
-			$lstr = substr($lstr, $mlen);
-			$str  = substr_replace($str, $replace, $matched + strlen($matches[1]), $slen);
-			$matched += $mlen + $lendif;
-			$i++;
-		}
-		return $str;
-	}
-	else
-	{
-		foreach (array_keys($search) as $k)
-		{
-			if (is_array($replace))
-			{
-				if (array_key_exists($k, $replace))
-				{
-					$str = ireplace($search[$k], $replace[$k], $str, $count);
-				}
-				else
-				{
-					$str = ireplace($search[$k], '', $str, $count);
-				}
-			}
-			else
-			{
-				$str = ireplace($search[$k], $replace, $str, $count);
-			}
-		}
-		return $str;
-	}
+            $mlen = strlen($matches[0]);
+            $lstr = substr($lstr, $mlen);
+            $str = substr_replace($str, $replace, $matched + strlen($matches[1]), $slen);
+            $matched += $mlen + $lendif;
+            $i++;
+        }
+        return $str;
+    } else {
+        foreach (array_keys($search) as $k) {
+            if (is_array($replace)) {
+                if (array_key_exists($k, $replace)) {
+                    $str = ireplace($search[$k], $replace[$k], $str, $count);
+                } else {
+                    $str = ireplace($search[$k], '', $str, $count);
+                }
+            } else {
+                $str = ireplace($search[$k], $replace, $str, $count);
+            }
+        }
+        return $str;
+    }
 }

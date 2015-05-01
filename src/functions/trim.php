@@ -24,17 +24,16 @@ namespace utf8;
  *
  * @return string
  */
-function ltrim ($str, $charlist = '')
+function ltrim($str, $charlist = '')
 {
-	if (empty($charlist))
-	{
-		return \ltrim($str);
-	}
+    if (empty($charlist)) {
+        return \ltrim($str);
+    }
 
-	// Quote charlist for use in a characterclass
-	$charlist = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $charlist);
+    // Quote charlist for use in a characterclass
+    $charlist = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $charlist);
 
-	return preg_replace('/^[' . $charlist . ']+/u', '', $str);
+    return preg_replace('/^[' . $charlist . ']+/u', '', $str);
 }
 
 /**
@@ -49,17 +48,16 @@ function ltrim ($str, $charlist = '')
  *
  * @return string
  */
-function rtrim ($str, $charlist = '')
+function rtrim($str, $charlist = '')
 {
-	if (empty($charlist))
-	{
-		return \rtrim($str);
-	}
+    if (empty($charlist)) {
+        return \rtrim($str);
+    }
 
-	// Quote charlist for use in a characterclass
-	$charlist = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $charlist);
+    // Quote charlist for use in a characterclass
+    $charlist = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $charlist);
 
-	return preg_replace('/[' . $charlist . ']+$/u', '', $str);
+    return preg_replace('/[' . $charlist . ']+$/u', '', $str);
 }
 
 /**
@@ -70,15 +68,15 @@ function rtrim ($str, $charlist = '')
  * @see    http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
  *
  * @param string  $str
- * @param boolean $charlist
+ * @param string  $charlist
  *
  * @return string
  */
-function trim ($str, $charlist = '')
+function trim($str, $charlist = '')
 {
-	if (empty($charlist))
-	{
-		return \trim($str);
-	}
-	return ltrim(rtrim($str, $charlist), $charlist);
+    if (empty($charlist)) {
+        return \trim($str);
+    }
+
+    return ltrim(rtrim($str, $charlist), $charlist);
 }

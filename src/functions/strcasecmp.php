@@ -12,15 +12,15 @@ namespace utf8;
  * @see        http://www.php.net/strcasecmp
  * @uses       utf8_strtolower
  *
- * @param string $strX
- * @param string $strY
+ * @param string $str_x
+ * @param string $str_y
  *
  * @return int
  */
-function casecmp ($str_x, $str_y)
+function casecmp($str_x, $str_y)
 {
-	$str_x = to_lower($str_x);
-	$str_y = to_lower($str_y);
-	return strcmp($str_x, $str_y);
-}
+    $str_x = to_lower($str_x);
+    $str_y = to_lower($str_y);
 
+    return strcmp($str_x, $str_y);
+}

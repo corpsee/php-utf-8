@@ -16,45 +16,41 @@ namespace utf8;
  * @param string $input
  * @param int    $length
  * @param string $pad_str
- * @param int    $type ( same constants as str_pad )
+ * @param int    $type    (same constants as str_pad)
  *
  * @return string
  */
-function pad ($input, $length, $pad_str = ' ', $type = STR_PAD_RIGHT)
+function pad($input, $length, $pad_str = ' ', $type = STR_PAD_RIGHT)
 {
-	$input_len = len($input);
-	if ($length <= $input_len)
-	{
-		return $input;
-	}
+    $input_len = len($input);
+    if ($length <= $input_len) {
+        return $input;
+    }
 
-	$pad_str_len = len($pad_str);
-	$pad_len     = $length - $input_len;
+    $pad_str_len = len($pad_str);
+    $pad_len = $length - $input_len;
 
-	if ($type == STR_PAD_RIGHT)
-	{
-		$repeat_times = ceil($pad_len / $pad_str_len);
-		return sub($input . str_repeat($pad_str, $repeat_times), 0, $length);
-	}
+    if ($type == STR_PAD_RIGHT) {
+        $repeat_times = ceil($pad_len / $pad_str_len);
+        return sub($input . str_repeat($pad_str, $repeat_times), 0, $length);
+    }
 
-	if ($type == STR_PAD_LEFT)
-	{
-		$repeat_times = ceil($pad_len / $pad_str_len);
-		return sub(str_repeat($pad_str, $repeat_times), 0, floor($pad_len)) . $input;
-	}
+    if ($type == STR_PAD_LEFT) {
+        $repeat_times = ceil($pad_len / $pad_str_len);
+        return sub(str_repeat($pad_str, $repeat_times), 0, floor($pad_len)) . $input;
+    }
 
-	if ($type == STR_PAD_BOTH)
-	{
-		$pad_len /= 2;
-		$pad_amount_left    = floor($pad_len);
-		$pad_amount_right   = ceil($pad_len);
-		$repeat_times_left  = ceil($pad_amount_left / $pad_str_len);
-		$repeat_times_right = ceil($pad_amount_right / $pad_str_len);
+    if ($type == STR_PAD_BOTH) {
+        $pad_len /= 2;
+        $pad_amount_left = floor($pad_len);
+        $pad_amount_right = ceil($pad_len);
+        $repeat_times_left = ceil($pad_amount_left / $pad_str_len);
+        $repeat_times_right = ceil($pad_amount_right / $pad_str_len);
 
-		$padding_left  = sub(str_repeat($pad_str, $repeat_times_left), 0, $pad_amount_left);
-		$padding_right = sub(str_repeat($pad_str, $repeat_times_right), 0, $pad_amount_right);
+        $padding_left = sub(str_repeat($pad_str, $repeat_times_left), 0, $pad_amount_left);
+        $padding_right = sub(str_repeat($pad_str, $repeat_times_right), 0, $pad_amount_right);
 
-		return $padding_left . $input . $padding_right;
-	}
-	trigger_error('utf8_str_pad: Unknown padding type (' . $type . ')', E_USER_ERROR);
+        return $padding_left . $input . $padding_right;
+    }
+    trigger_error('utf8_str_pad: Unknown padding type (' . $type . ')', E_USER_ERROR);
 }

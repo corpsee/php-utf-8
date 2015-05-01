@@ -23,97 +23,83 @@ namespace utf8;
  * @author Chris Smith<chris@jalakai.co.uk>
  *
  * @param string string to locate index in
- * @param int    (n times)
+ * @param int (n times)
  *
  * @return mixed - int if only one input int, array if more, boolean TRUE if it's all ASCII
  */
-function byte_position ()
+function byte_position()
 {
-	$args = func_get_args();
-	$str  = array_shift($args);
+    $args = func_get_args();
+    $str = array_shift($args);
 
-	if (!is_string($str))
-	{
-		return FALSE;
-	}
+    if (!is_string($str)) {
+        return false;
+    }
 
-	$result = array();
-	$prev   = array(0, 0); // Trivial byte index, character offset pair
-	$i      = locate_next_chr($str, 300); // Use a short piece of str to estimate bytes per character. $i (& $j) -> byte indexes into $str
-	$c      = strlen(utf8_decode(substr($str, 0, $i))); // $c -> character offset into $str
+    $result = array();
+    $prev = array(0, 0); // Trivial byte index, character offset pair
+    $i = locate_next_chr($str,
+        300); // Use a short piece of str to estimate bytes per character. $i (& $j) -> byte indexes into $str
+    $c = strlen(utf8_decode(substr($str, 0, $i))); // $c -> character offset into $str
 
-	// Deal with arguments from lowest to highest
-	sort($args);
+    // Deal with arguments from lowest to highest
+    sort($args);
 
-	foreach ($args as $offset)
-	{
-		// Sanity checks FIXME
-		// 0 is an easy check
-		if ($offset == 0)
-		{
-			$result[] = 0;
-			continue;
-		}
+    foreach ($args as $offset) {
+        // Sanity checks FIXME
+        // 0 is an easy check
+        if ($offset == 0) {
+            $result[] = 0;
+            continue;
+        }
 
-		// Ensure no endless looping
-		$safety_valve = 50;
+        // Ensure no endless looping
+        $safety_valve = 50;
 
-		do
-		{
-			if (($c - $prev[1]) == 0)
-			{
-				// Hack: gone past end of string
-				$error = 0;
-				$i     = strlen($str);
-				break;
-			}
+        do {
+            if (($c - $prev[1]) == 0) {
+                // Hack: gone past end of string
+                $error = 0;
+                $i = strlen($str);
+                break;
+            }
 
-			$j    = $i + (int)(($offset - $c) * ($i - $prev[0]) / ($c - $prev[1]));
-			$j    = locate_next_chr($str, $j); // Correct to utf8 character boundary
-			$prev = array($i, $c); // Save the index, offset for use next iteration
+            $j = $i + (int)(($offset - $c) * ($i - $prev[0]) / ($c - $prev[1]));
+            $j = locate_next_chr($str, $j); // Correct to utf8 character boundary
+            $prev = array($i, $c); // Save the index, offset for use next iteration
 
-			if ($j > $i)
-			{
-				$c += strlen(utf8_decode(substr($str, $i, $j - $i))); // Determine new character offset
-			}
-			else
-			{
-				$c -= strlen(utf8_decode(substr($str, $j, $i - $j))); // Ditto
-			}
-			$error = abs($c - $offset);
-			$i     = $j; // Ready for next time around
-		}
-		while (($error > 7) && --$safety_valve); // From 7 it is faster to iterate over the string
+            if ($j > $i) {
+                $c += strlen(utf8_decode(substr($str, $i, $j - $i))); // Determine new character offset
+            } else {
+                $c -= strlen(utf8_decode(substr($str, $j, $i - $j))); // Ditto
+            }
+            $error = abs($c - $offset);
+            $i = $j; // Ready for next time around
+        } while (($error > 7) && --$safety_valve); // From 7 it is faster to iterate over the string
 
-		if ($error && $error <= 7)
-		{
-			if ($c < $offset)
-			{
-				// Move up
-				while ($error--)
-				{
-					$i = locate_next_chr($str, ++$i);
-				}
-			}
-			else
-			{
-				// Move down
-				while ($error--)
-				{
-					$i = locate_current_chr($str, --$i);
-				}
-			}
-			// Ready for next arg
-			$c = $offset;
-		}
-		$result[] = $i;
-	}
+        if ($error && $error <= 7) {
+            if ($c < $offset) {
+                // Move up
+                while ($error--) {
+                    $i = locate_next_chr($str, ++$i);
+                }
+            } else {
+                // Move down
+                while ($error--) {
+                    $i = locate_current_chr($str, --$i);
+                }
+            }
+            // Ready for next arg
+            $c = $offset;
+        }
+        $result[] = $i;
+    }
 
-	if (count($result) == 1)
-	{
-		return $result[0];
-	}
-	return $result;
+    if (count($result) == 1) {
+        return $result[0];
+    }
+
+    return $result;
 }
 
 /**
@@ -127,31 +113,29 @@ function byte_position ()
  * @author Chris Smith<chris@jalakai.co.uk>
  *
  * @param string $str
- * @param int    $idx byte index in the string
+ * @param int $idx byte index in the string
  *
  * @return int byte index of start of next UTF-8 character
  */
-function locate_current_chr (&$str, $idx)
+function locate_current_chr(&$str, $idx)
 {
-	if ($idx <= 0)
-	{
-		return 0;
-	}
+    if ($idx <= 0) {
+        return 0;
+    }
 
-	$limit = strlen($str);
-	if ($idx >= $limit)
-	{
-		return $limit;
-	}
+    $limit = strlen($str);
+    if ($idx >= $limit) {
+        return $limit;
+    }
 
-	// Binary value for any byte after the first in a multi-byte UTF-8 character
-	// will be like 10xxxxxx so & 0xC0 can be used to detect this kind
-	// of byte - assuming well formed UTF-8
-	while ($idx && ((\ord($str[$idx]) & 0xC0) == 0x80))
-	{
-		$idx--;
-	}
-	return $idx;
+    // Binary value for any byte after the first in a multi-byte UTF-8 character
+    // will be like 10xxxxxx so & 0xC0 can be used to detect this kind
+    // of byte - assuming well formed UTF-8
+    while ($idx && ((\ord($str[$idx]) & 0xC0) == 0x80)) {
+        $idx--;
+    }
+
+    return $idx;
 }
 
 /**
@@ -164,29 +148,27 @@ function locate_current_chr (&$str, $idx)
  * @author Chris Smith<chris@jalakai.co.uk>
  *
  * @param string $str
- * @param int    $idx byte index in the string
+ * @param int $idx byte index in the string
  *
  * @return int byte index of start of next UTF-8 character
  */
-function locate_next_chr (&$str, $idx)
+function locate_next_chr(&$str, $idx)
 {
-	if ($idx <= 0)
-	{
-		return 0;
-	}
+    if ($idx <= 0) {
+        return 0;
+    }
 
-	$limit = strlen($str);
-	if ($idx >= $limit)
-	{
-		return $limit;
-	}
+    $limit = strlen($str);
+    if ($idx >= $limit) {
+        return $limit;
+    }
 
-	// Binary value for any byte after the first in a multi-byte UTF-8 character
-	// will be like 10xxxxxx so & 0xC0 can be used to detect this kind
-	// of byte - assuming well formed UTF-8
-	while (($idx < $limit) && ((\ord($str[$idx]) & 0xC0) == 0x80))
-	{
-		$idx++;
-	}
-	return $idx;
+    // Binary value for any byte after the first in a multi-byte UTF-8 character
+    // will be like 10xxxxxx so & 0xC0 can be used to detect this kind
+    // of byte - assuming well formed UTF-8
+    while (($idx < $limit) && ((\ord($str[$idx]) & 0xC0) == 0x80)) {
+        $idx++;
+    }
+
+    return $idx;
 }

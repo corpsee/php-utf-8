@@ -20,25 +20,23 @@ namespace utf8;
  *
  * @return integer|null
  */
-function cspn ($str, $mask, $start = NULL, $length = NULL)
+function cspn($str, $mask, $start = null, $length = null)
 {
-	if (empty($mask) || strlen($mask) == 0)
-	{
-		return NULL;
-	}
+    if (empty($mask) || strlen($mask) == 0) {
+        return null;
+    }
 
-	$mask = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $mask);
+    $mask = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $mask);
 
-	if ($start !== NULL || $length !== NULL)
-	{
-		$str = sub($str, $start, $length);
-	}
+    if ($start !== null || $length !== null) {
+        $str = sub($str, $start, $length);
+    }
 
-	preg_match('/^[^' . $mask . ']+/u', $str, $matches);
+    preg_match('/^[^' . $mask . ']+/u', $str, $matches);
 
-	if (isset($matches[0]))
-	{
-		return len($matches[0]);
-	}
-	return 0;
+    if (isset($matches[0])) {
+        return len($matches[0]);
+    }
+
+    return 0;
 }

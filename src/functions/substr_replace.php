@@ -18,14 +18,14 @@ namespace utf8;
  *
  * @return string
  */
-function sub_replace ($str, $repl, $start, $length = NULL)
+function sub_replace($str, $repl, $start, $length = null)
 {
-	preg_match_all('/./us', $str, $ar);
-	preg_match_all('/./us', $repl, $rar);
+    preg_match_all('/./us', $str, $ar);
+    preg_match_all('/./us', $repl, $rar);
 
-	$length = is_int($length) ? $length : len($str);
+    $length = is_int($length) ? $length : len($str);
 
-	array_splice($ar[0], $start, $length, $rar[0]);
+    array_splice($ar[0], $start, $length, $rar[0]);
 
-	return implode($ar[0]);
+    return implode($ar[0]);
 }

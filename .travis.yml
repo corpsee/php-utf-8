@@ -7,9 +7,10 @@ php:
 matrix:
     allow_failures:
         - php:
+          - hhvm
           - 5.6
 
 install: composer install
 script:
-  - phpunit --configuration native.xml --coverage-text
+  - phpunit --configuration native.xml   --coverage-text
   - phpunit --configuration mbstring.xml --coverage-text

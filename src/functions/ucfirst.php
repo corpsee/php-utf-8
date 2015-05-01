@@ -16,18 +16,17 @@ namespace utf8;
  *
  * @return string A string with the first character in Uppercase (if applicable).
  */
-function ucfirst ($str)
+function ucfirst($str)
 {
-	switch (len($str))
-	{
-		case 0:
-			return '';
-			break;
-		case 1:
-			return to_upper($str);
-			break;
-		default:
-			preg_match('/^(.{1})(.*)$/us', $str, $matches);
-			return to_upper($matches[1]) . $matches[2];
-	}
+    switch (len($str)) {
+        case 0:
+            return '';
+            break;
+        case 1:
+            return to_upper($str);
+            break;
+        default:
+            preg_match('/^(.{1})(.*)$/us', $str, $matches);
+            return to_upper($matches[1]) . $matches[2];
+    }
 }

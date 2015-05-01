@@ -17,18 +17,17 @@ namespace utf8;
  *
  * @return string characters in string reverses
  */
-function split ($str, $split_len = 1)
+function split($str, $split_len = 1)
 {
-	if (!preg_match('/^[0-9]+$/', $split_len) || $split_len < 1)
-	{
-		return FALSE;
-	}
+    if (!preg_match('/^[0-9]+$/', $split_len) || $split_len < 1) {
+        return false;
+    }
 
-	$len = len($str);
-	if ($len <= $split_len)
-	{
-		return array($str);
-	}
-	preg_match_all('/.{' . $split_len . '}|[^\x00]{1,' . $split_len . '}$/us', $str, $ar);
-	return $ar[0];
+    $len = len($str);
+    if ($len <= $split_len) {
+        return array($str);
+    }
+    preg_match_all('/.{' . $split_len . '}|[^\x00]{1,' . $split_len . '}$/us', $str, $ar);
+
+    return $ar[0];
 }

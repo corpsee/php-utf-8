@@ -15,9 +15,10 @@ namespace utf8;
  *
  * @return string characters in string reverses
  */
-function reverse ($str)
+function reverse($str)
 {
-	preg_match_all('/./us', $str, $ar);
-	return implode(array_reverse($ar[0]));
+    preg_match_all('/./us', $str, $ar);
+
+    return implode(array_reverse($ar[0]));
 }
 

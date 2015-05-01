@@ -15,22 +15,21 @@ namespace utf8;
  * @param string $str
  * @param string $search
  *
- * @return int
+ * @return integer|false
  */
-function ifind ($str, $search)
+function ifind($str, $search)
 {
-	if (strlen($search) == 0)
-	{
-		return $str;
-	}
+    if (strlen($search) == 0) {
+        return $str;
+    }
 
-	$lstr    = to_lower($str);
-	$lsearch = to_lower($search);
-	preg_match('/^(.*)' . preg_quote($lsearch) . '/Us', $lstr, $matches);
+    $lstr = to_lower($str);
+    $lsearch = to_lower($search);
+    preg_match('/^(.*)' . preg_quote($lsearch) . '/Us', $lstr, $matches);
 
-	if (count($matches) == 2)
-	{
-		return substr($str, strlen($matches[1]));
-	}
-	return FALSE;
+    if (count($matches) == 2) {
+        return substr($str, strlen($matches[1]));
+    }
+
+    return false;
 }
