@@ -21,8 +21,8 @@ install:
   - composer install
 
 script:
-  - phpunit --configuration native.xml   --coverage-text
-  - phpunit --configuration mbstring.xml --coverage-text
+  - phpunit --configuration native.xml
+  - phpunit --configuration mbstring.xml
 
 notifications:
   email:
