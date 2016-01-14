@@ -21,7 +21,7 @@
 		"lib-pcre": "*"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "4.1.*"
+		"phpunit/phpunit": "4.8.*"
 	},
 	"suggest":     {
 		"ext-mbstring": "Use Mbstring for best performance"
