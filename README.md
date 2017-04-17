@@ -5,6 +5,9 @@
 [![License](https://img.shields.io/packagist/l/corpsee/php-utf-8.svg?label=License&style=flat-square)](https://packagist.org/packages/corpsee/php-utf-8)
 [![SensioLabs Insight](https://img.shields.io/sensiolabs/i/f348ff6a-40e9-4259-af1f-e88f5f9c588d.svg?label=Insight&style=flat-square)](https://insight.sensiolabs.com/projects/f348ff6a-40e9-4259-af1f-e88f5f9c588d)
 
+**This package is abandoned and no longer maintained. The author suggests using the 
+[patchwork/utf8](https://github.com/nicolas-grekas/Patchwork-UTF8) package instead.**
+
 PHP-UTF-8
 =========
 
