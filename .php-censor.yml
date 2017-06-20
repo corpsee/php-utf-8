@@ -1,4 +1,5 @@
 build_settings:
+  clone_depth: 1
   ignore:
     - vendor
     - tests
@@ -12,7 +13,6 @@ test:
     config:
       - native.xml
       - mbstring.xml
-    coverage: true
 
   php_mess_detector:
     allow_failures: true
@@ -34,9 +34,8 @@ test:
   php_docblock_checker:
     allow_failures: true
 
-failure:
-  email:
-    committer: true
+  security_checker:
+    allow_failures: true
 
 complete:
   email:
