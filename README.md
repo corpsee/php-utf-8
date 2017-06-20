@@ -1,5 +1,5 @@
-[![PHPCI](http://phpci.corpsee.com/build-status/image/2?branch=master&label=PHPCI&style=flat-square)](http://phpci.corpsee.com/build-status/view/2?branch=master)
-[![Travis](https://img.shields.io/travis/corpsee/php-utf-8/master.svg?label=Travis&style=flat-square)](https://travis-ci.org/corpsee/php-utf-8?branch=master)
+[![PHP Censor](http://ci.php-censor.info/build-status/image/1?branch=master&label=PHPCensor&style=flat-square)](http://ci.php-censor.info/build-status/view/1?branch=master)
+[![Travis CI](https://img.shields.io/travis/corpsee/php-utf-8/master.svg?label=Travis&style=flat-square)](https://travis-ci.org/corpsee/php-utf-8?branch=master)
 [![Latest Version](https://img.shields.io/packagist/v/corpsee/php-utf-8.svg?label=Version&style=flat-square)](https://packagist.org/packages/corpsee/php-utf-8)
 [![Total downloads](https://img.shields.io/packagist/dt/corpsee/php-utf-8.svg?label=Downloads&style=flat-square)](https://packagist.org/packages/corpsee/php-utf-8)
 [![License](https://img.shields.io/packagist/l/corpsee/php-utf-8.svg?label=License&style=flat-square)](https://packagist.org/packages/corpsee/php-utf-8)
